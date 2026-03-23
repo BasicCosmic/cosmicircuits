@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta property="og:description" content="Cosmic Circuits — Build Guild Bengaluru. Hack Club Blueprint's hardware meetup. April 18, 2025.">
+  <title>Cosmic Circuits — Build Guild Bengaluru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg:        #04050d;
+  --bg-2:      #070912;
+  --fg:        #e8eeff;
+  --fg-dim:    rgba(200,215,255,0.44);
+  --fg-faint:  rgba(200,215,255,0.16);
+  --accent:    #00e5ff;
+  --accent-dim:rgba(0,229,255,0.10);
+  --line:      rgba(0,229,255,0.09);
+  --line-mid:  rgba(0,229,255,0.20);
+  --ff-hero:   'Bebas Neue', sans-serif;
+  --ff-mono:   'DM Mono', monospace;
+  --ff-body:   'Barlow', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:var(--ff-body);
+  font-size:17px;
+  line-height:1.65;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none;}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;height:64px;
+  border-bottom:1px solid var(--line);
+  background:rgba(4,5,13,0.88);
+  backdrop-filter:blur(28px);
+}
+.nav-wordmark{
+  font-family:var(--ff-mono);font-size:11px;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+}
+.nav-links{display:flex;list-style:none;align-items:center;gap:40px;}
+.nav-links a{
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fg-dim);transition:color .2s;
+}
+.nav-links a:hover{color:var(--fg);}
+.nav-cta{
+  color:var(--bg) !important;background:var(--accent);
+  padding:8px 22px !important;border-radius:2px;transition:opacity .2s !important;
+}
+.nav-cta:hover{opacity:.82;}
+
+/* HERO */
+.hero{
+  position:relative;z-index:1;
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 52px 64px;overflow:hidden;
+}
+/* scanlines */
+.hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:4;
+  background:repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.06) 3px,
+    rgba(0,0,0,0.06) 4px
+  );
+}
+/* circuit traces */
+.circuit{
+  position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.28;
+}
+.circuit svg{width:100%;height:100%;position:absolute;top:0;left:0;}
+
+.hero-status{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--accent);
+  margin-bottom:20px;display:flex;align-items:center;gap:10px;
+  position:relative;z-index:2;
+  animation:fadeup .6s .05s both;
+}
+.pip{
+  width:7px;height:7px;background:var(--accent);border-radius:50%;
+  animation:pip 2.4s ease infinite;
+}
+@keyframes pip{0%,100%{box-shadow:0 0 0 0 rgba(0,229,255,.7);}50%{box-shadow:0 0 0 7px rgba(0,229,255,0);}}
+
+.hero-title{
+  font-family:var(--ff-hero);
+  font-size:clamp(96px,18vw,256px);
+  line-height:.9;letter-spacing:.01em;
+  color:var(--fg);
+  position:relative;z-index:2;
+  animation:fadeup .75s .12s both;
+}
+/* accent stroke on first word */
+.hero-title .stroke{
+  -webkit-text-stroke:1px var(--accent);
+  color:transparent;
+}
+.hero-city{
+  font-family:var(--ff-mono);font-size:clamp(11px,1.3vw,16px);
+  letter-spacing:.38em;text-transform:uppercase;color:var(--fg-dim);
+  margin-top:20px;margin-bottom:52px;
+  position:relative;z-index:2;
+  animation:fadeup .7s .22s both;
+}
+.hero-bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:32px;position:relative;z-index:2;
+  animation:fadeup .7s .32s both;
+}
+.hero-desc{
+  font-size:16px;color:var(--fg-dim);max-width:420px;
+  font-weight:300;line-height:1.8;
+}
+.hero-desc strong{color:var(--fg);font-weight:500;}
+.hero-ctas{display:flex;gap:14px;flex-shrink:0;}
+
+/* data strip */
+.hero-data{
+  display:flex;border:1px solid var(--line-mid);
+  margin-top:48px;position:relative;z-index:2;
+  animation:fadeup .7s .42s both;
+}
+.hd-cell{flex:1;padding:18px 28px;border-right:1px solid var(--line-mid);}
+.hd-cell:last-child{border-right:none;}
+.hd-label{
+  font-family:var(--ff-mono);font-size:9px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--fg-dim);margin-bottom:5px;
+}
+.hd-val{
+  font-family:var(--ff-mono);font-size:16px;font-weight:500;
+  color:var(--fg);letter-spacing:.04em;
+}
+.hd-val.accent{color:var(--accent);}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--ff-mono);font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  padding:14px 28px;border-radius:2px;cursor:pointer;
+  border:none;transition:opacity .2s,transform .2s;white-space:nowrap;
+}
+.btn:hover{opacity:.82;transform:translateY(-1px);}
+.btn-primary{background:var(--accent);color:var(--bg);}
+.btn-ghost{
+  background:transparent;color:var(--fg-dim);
+  border:1px solid var(--line-mid);
+}
+.btn-ghost:hover{color:var(--fg);border-color:var(--accent);}
+
+/* SECTION */
+section{position:relative;z-index:1;padding:120px 52px;}
+.inner{max-width:1140px;margin:0 auto;}
+.label{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--accent);
+  margin-bottom:24px;display:flex;align-items:center;gap:12px;
+}
+.label::before{content:'';display:inline-block;width:28px;height:1px;background:var(--accent);}
+h2{
+  font-family:var(--ff-hero);
+  font-size:clamp(44px,6.5vw,92px);
+  line-height:.95;letter-spacing:.01em;
+  color:var(--fg);margin-bottom:22px;
+}
+.lead{
+  font-size:17px;color:var(--fg-dim);max-width:560px;
+  font-weight:300;margin-bottom:72px;line-height:1.8;
+}
+.lead strong{color:var(--fg);font-weight:500;}
+.rule{border:none;border-top:1px solid var(--line);}
+.alt{background:var(--bg-2);}
+
+/* SPEC LIST */
+.spec-list{display:flex;flex-direction:column;}
+.spec-row{
+  display:grid;grid-template-columns:64px 200px 1fr;
+  gap:0 48px;align-items:start;
+  padding:36px 0;border-bottom:1px solid var(--line);
+  transition:background .25s;
+}
+.spec-row:first-child{border-top:1px solid var(--line);}
+.spec-row:hover{background:rgba(0,229,255,.025);}
+.spec-num{
+  font-family:var(--ff-mono);font-size:11px;
+  color:var(--fg-faint);letter-spacing:.1em;padding-top:3px;
+}
+.spec-title{
+  font-family:var(--ff-mono);font-size:12px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fg);padding-top:2px;
+}
+.spec-body{font-size:15px;color:var(--fg-dim);font-weight:300;line-height:1.75;}
+
+/* TIMELINE */
+.timeline{max-width:820px;display:flex;flex-direction:column;}
+.tl-row{display:grid;grid-template-columns:110px 1px 1fr;gap:0 40px;align-items:stretch;}
+.tl-time{
+  font-family:var(--ff-mono);font-size:12px;color:var(--accent);
+  letter-spacing:.08em;text-align:right;
+  display:flex;align-items:flex-start;justify-content:flex-end;
+  padding-top:28px;
+}
+.tl-spine{display:flex;flex-direction:column;align-items:center;}
+.tl-dot{
+  width:9px;height:9px;border:2px solid var(--accent);
+  border-radius:50%;background:var(--bg-2);margin-top:24px;
+  flex-shrink:0;position:relative;z-index:1;
+}
+.tl-row:last-child .tl-dot{background:var(--accent);}
+.tl-seg{flex:1;width:1px;background:var(--line-mid);min-height:24px;}
+.tl-row:last-child .tl-seg{display:none;}
+.tl-body{padding:20px 0 28px;}
+.tl-title{
+  font-family:var(--ff-mono);font-size:12px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--fg);margin-bottom:6px;
+}
+.tl-desc{font-size:14px;color:var(--fg-dim);font-weight:300;}
+
+/* RSVP */
+.rsvp-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.rsvp-left h3{
+  font-family:var(--ff-hero);font-size:clamp(32px,4.5vw,60px);
+  line-height:1.0;margin-bottom:20px;
+}
+.rsvp-left p{font-size:15px;color:var(--fg-dim);font-weight:300;margin-bottom:36px;line-height:1.8;}
+.perks{display:flex;flex-direction:column;gap:11px;}
+.perk{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;color:var(--fg-dim);
+}
+.perk::before{
+  content:'✓';width:20px;height:20px;flex-shrink:0;
+  border:1px solid var(--accent);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;color:var(--accent);
+}
+.rsvp-panel{
+  border:1px solid var(--line-mid);padding:52px 44px;
+  position:relative;overflow:hidden;
+}
+.rsvp-panel::before,.rsvp-panel::after{
+  content:'';position:absolute;width:16px;height:16px;
+}
+.rsvp-panel::before{top:0;left:0;border-top:2px solid var(--accent);border-left:2px solid var(--accent);}
+.rsvp-panel::after{bottom:0;right:0;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent);}
+.rsvp-panel h3{font-family:var(--ff-hero);font-size:38px;margin-bottom:10px;letter-spacing:.02em;}
+.rsvp-panel > p{font-size:14px;color:var(--fg-dim);font-weight:300;margin-bottom:30px;line-height:1.75;}
+.rsvp-panel .btn{width:100%;justify-content:center;}
+.rsvp-note{
+  font-family:var(--ff-mono);font-size:10px;color:var(--fg-faint);
+  letter-spacing:.08em;margin-top:16px;text-align:center;
+}
+
+/* ORGANIZERS */
+.org-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+}
+.org-card{
+  background:var(--bg);padding:32px 28px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:background .25s;position:relative;overflow:hidden;
+}
+.org-card:hover{background:var(--accent-dim);}
+.org-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s ease;
+}
+.org-card:hover::after{transform:scaleX(1);}
+.org-pfp{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--accent-dim);border:1px solid var(--line-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-mono);font-size:17px;font-weight:500;
+  color:var(--accent);overflow:hidden;flex-shrink:0;
+}
+.org-pfp img{width:100%;height:100%;object-fit:cover;}
+.org-name{font-family:var(--ff-mono);font-size:12px;font-weight:500;color:var(--fg);letter-spacing:.05em;}
+.org-role{font-family:var(--ff-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);}
+.org-link{
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.06em;
+  color:var(--fg-faint);align-self:flex-start;
+  border-bottom:1px solid var(--line);padding-bottom:1px;
+  transition:color .2s,border-color .2s;
+}
+.org-link:hover{color:var(--accent);border-color:var(--accent);}
+
+/* FAQ */
+.faq-wrap{max-width:800px;}
+.faq-item{border-bottom:1px solid var(--line);}
+.faq-item:first-child{border-top:1px solid var(--line);}
+.faq-btn{
+  width:100%;background:none;border:none;color:var(--fg);
+  font-family:var(--ff-body);font-size:16px;font-weight:500;
+  text-align:left;padding:22px 0;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  transition:color .2s;
+}
+.faq-btn:hover{color:var(--accent);}
+.faq-icon{
+  font-family:var(--ff-mono);font-size:20px;color:var(--accent);
+  transition:transform .3s;flex-shrink:0;line-height:1;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .35s;}
+.faq-item.open .faq-body{max-height:400px;padding-bottom:22px;}
+.faq-body p{font-size:15px;color:var(--fg-dim);font-weight:300;line-height:1.75;}
+.faq-body a{color:var(--accent);}
+
+/* SLACK STRIP */
+.slack-strip{
+  position:relative;z-index:1;
+  border-top:1px solid var(--line);padding:44px 52px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.slack-text{
+  font-family:var(--ff-mono);font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--fg-dim);
+}
+.slack-text strong{color:var(--fg);}
+.slack-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);
+  border:1px solid var(--line-mid);padding:12px 24px;border-radius:2px;
+  transition:border-color .2s,background .2s;flex-shrink:0;
+}
+.slack-btn:hover{border-color:var(--accent);background:var(--accent-dim);}
+.slack-icon{
+  width:16px;height:16px;flex-shrink:0;border-radius:3px;
+  background:conic-gradient(#e01e5a 0deg 90deg,#ecb22e 90deg 180deg,#2eb67d 180deg 270deg,#36c5f0 270deg 360deg);
+}
+
+/* FOOTER */
+footer{
+  position:relative;z-index:1;border-top:1px solid var(--line);
+  padding:44px 52px;display:flex;flex-direction:column;gap:20px;
+}
+.ft-top{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.ft-logo{font-family:var(--ff-hero);font-size:22px;letter-spacing:.04em;}
+.ft-logo span{color:var(--accent);}
+.ft-links{display:flex;gap:28px;flex-wrap:wrap;}
+.ft-links a{
+  font-family:var(--ff-mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--fg-faint);transition:color .2s;
+}
+.ft-links a:hover{color:var(--accent);}
+.ft-copy{
+  font-family:var(--ff-mono);font-size:10px;letter-spacing:.1em;
+  color:var(--fg-faint);border-top:1px solid var(--line);padding-top:20px;
+}
+
+/* ANIMATIONS */
+@keyframes fadeup{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.in{opacity:1;transform:none;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 24px;}
+  .nav-links{display:none;}
+  section{padding:90px 24px;}
+  .hero{padding:0 24px 52px;}
+  .spec-row{grid-template-columns:44px 1fr;gap:0 24px;}
+  .spec-body{grid-column:2;}
+  .rsvp-grid{grid-template-columns:1fr;gap:48px;}
+  .hero-bottom{flex-direction:column;align-items:flex-start;}
+  .slack-strip{flex-direction:column;align-items:flex-start;padding:36px 24px;}
+  .ft-top{flex-direction:column;align-items:flex-start;}
+  footer{padding:40px 24px;}
+}
+@media(max-width:600px){
+  .hero-title{font-size:76px;}
+  .hero-data{flex-direction:column;}
+  .hd-cell{border-right:none;border-bottom:1px solid var(--line-mid);}
+  .hd-cell:last-child{border-bottom:none;}
+  .tl-row{grid-template-columns:80px 1px 1fr;gap:0 24px;}
+}
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-wordmark">Cosmic Circuits</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#organizers">Organizers</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#rsvp" class="nav-cta">Register</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="circuit" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <g stroke="#00e5ff" stroke-width="0.6" fill="none">
+        <polyline points="0,220 280,220 280,340 560,340 560,160 860,160 860,440 1140,440 1140,280 1440,280"/>
+        <polyline points="0,680 160,680 160,560 440,560 440,760 760,760 760,600 1060,600 1060,820 1440,820"/>
+        <line x1="1380" y1="280" x2="1380" y2="600"/>
+        <circle cx="280" cy="220" r="4" fill="#00e5ff"/>
+        <circle cx="560" cy="340" r="4" fill="#00e5ff"/>
+        <circle cx="860" cy="160" r="4" fill="#00e5ff"/>
+        <circle cx="1140" cy="440" r="4" fill="#00e5ff"/>
+        <circle cx="160" cy="680" r="4" fill="#00e5ff"/>
+        <circle cx="440" cy="560" r="4" fill="#00e5ff"/>
+        <circle cx="760" cy="760" r="4" fill="#00e5ff"/>
+        <circle cx="1060" cy="600" r="4" fill="#00e5ff"/>
+        <rect x="820" y="400" width="80" height="40" rx="2"/>
+        <rect x="400" y="520" width="80" height="40" rx="2"/>
+        <rect x="1100" y="260" width="80" height="40" rx="2"/>
+        <rect x="240" y="200" width="80" height="40" rx="2"/>
+        <rect x="520" y="140" width="80" height="40" rx="2"/>
+        <line x1="840" y1="220" x2="840" y2="160"/>
+        <line x1="840" y1="160" x2="860" y2="160"/>
+        <line x1="280" y1="280" x2="320" y2="280"/>
+        <line x1="320" y1="280" x2="320" y2="340"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-status">
+    <span class="pip"></span>
+    Hack Club Blueprint · Build Guilds 2025 · Signal Acquired
+  </div>
+
+  <h1 class="hero-title">
+    <span class="stroke">COSMIC</span><br>CIRCUITS
+  </h1>
+  <p class="hero-city">Build Guild — Bengaluru, India</p>
+
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      The world's largest hardware meetup week lands in Bengaluru.<br>
+      Solder. Build. Launch. <strong>April 18, 2025.</strong>
+    </p>
+    <div class="hero-ctas">
+      <a href="#rsvp" class="btn btn-primary">Join the Guild →</a>
+      <a href="#overview" class="btn btn-ghost">Learn More</a>
+    </div>
+  </div>
+
+  <div class="hero-data">
+    <div class="hd-cell">
+      <div class="hd-label">Date</div>
+      <div class="hd-val accent">Apr 18, 2025</div>
+    </div>
+    <div class="hd-cell">
+      <div class="hd-label">City</div>
+      <div class="hd-val">Bengaluru, IN</div>
+    </div>
+    <div class="hd-cell">
+      <div class="hd-label">Venue</div>
+      <div class="hd-val">TBA</div>
+    </div>
+    <div class="hd-cell">
+      <div class="hd-label">Entry</div>
+      <div class="hd-val">Free</div>
+    </div>
+    <div class="hd-cell">
+      <div class="hd-label">Age</div>
+      <div class="hd-val">13 — 18</div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="inner">
+    <div class="label reveal">Mission Overview</div>
+    <h2 class="reveal">Bengaluru's<br>1-day hardware<br>mission.</h2>
+    <p class="lead reveal">
+      Part of Hack Club Blueprint's global Build Guilds week —
+      running <strong>April 13–19</strong> across 100+ cities.
+      Every guild is local. Every build is real.
+    </p>
+    <div class="spec-list">
+      <div class="spec-row reveal">
+        <span class="spec-num">01</span>
+        <span class="spec-title">Who</span>
+        <span class="spec-body">Any teen aged 13–18. Zero hardware experience required — bring curiosity and a phone. Beginners and serial makers both welcome.</span>
+      </div>
+      <div class="spec-row reveal">
+        <span class="spec-num">02</span>
+        <span class="spec-title">Where</span>
+        <span class="spec-body">A curated, hardware-friendly space in Bengaluru. Venue confirmed closer to the event — sign up to get the details direct.</span>
+      </div>
+      <div class="spec-row reveal">
+        <span class="spec-num">03</span>
+        <span class="spec-title">What</span>
+        <span class="spec-body">Workshops, project demos, lightning talks, soldering sessions, open build time. Makers colliding at full speed for one full day.</span>
+      </div>
+      <div class="spec-row reveal">
+        <span class="spec-num">04</span>
+        <span class="spec-title">Cost</span>
+        <span class="spec-body">Completely free. Hack Club funds each guild per attendee — food, venue, and materials included. You bring the ideas.</span>
+      </div>
+      <div class="spec-row reveal">
+        <span class="spec-num">05</span>
+        <span class="spec-title">Scale</span>
+        <span class="spec-body">100+ guilds running globally the same week. Same energy, same mission — Bengaluru on the map alongside every other city.</span>
+      </div>
+      <div class="spec-row reveal">
+        <span class="spec-num">06</span>
+        <span class="spec-title">Blueprint</span>
+        <span class="spec-body">Hack Club's hardware program, built with AMD. Grants up to $400 USD for advanced builds, real parts, real guidance for teen makers.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- AGENDA -->
+<section class="alt" id="agenda">
+  <div class="inner">
+    <div class="label reveal">Mission Log</div>
+    <h2 class="reveal">Flight Plan</h2>
+    <p class="lead reveal">Rough schedule for the day. Final timings confirmed closer to launch.</p>
+    <div class="timeline">
+      <div class="tl-row reveal">
+        <div class="tl-time">10:00</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Doors Open — Launch Sequence</div>
+          <div class="tl-desc">Check-in, collect your badge, meet the ground crew and fellow builders.</div>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-time">10:30</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Opening Briefing</div>
+          <div class="tl-desc">What Blueprint is, what we're building today, and how the day works.</div>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-time">11:00</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Hardware Workshop</div>
+          <div class="tl-desc">Beginner-friendly hands-on session. Solder something, break something, learn something.</div>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-time">13:00</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Fuel Stop</div>
+          <div class="tl-desc">Lunch provided. Eat, connect, conspire.</div>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-time">14:00</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Open Build + Lightning Talks</div>
+          <div class="tl-desc">Build your project. Watch others demo. Live feedback. Productive chaos.</div>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-time">16:00</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Project Showcase</div>
+          <div class="tl-desc">Present your builds to the guild. Prizes. Recognition. Applause.</div>
+        </div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-time">17:30</div>
+        <div class="tl-spine"><div class="tl-dot"></div><div class="tl-seg"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Re-entry — Closing</div>
+          <div class="tl-desc">Wrap-up, links, next steps. Don't lose the momentum.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- RSVP -->
+<section id="rsvp">
+  <div class="inner">
+    <div class="label reveal">Boarding Pass</div>
+    <div class="rsvp-grid">
+      <div class="rsvp-left reveal">
+        <h3>Reserve your seat in Bengaluru.</h3>
+        <p>Sign up and unlock your attendee dashboard — venue details, schedule updates, and all announcements in one place.</p>
+        <div class="perks">
+          <div class="perk">100% free to attend</div>
+          <div class="perk">Food provided on the day</div>
+          <div class="perk">Explore real hardware projects</div>
+          <div class="perk">Meet Bengaluru's builder community</div>
+          <div class="perk">Part of a 100+ city global event</div>
+          <div class="perk">Hack Club Blueprint perks and grants</div>
+        </div>
+      </div>
+      <div class="rsvp-panel reveal">
+        <h3>Ready for Launch?</h3>
+        <p>Registration takes under a minute. Your spot in orbit is waiting.</p>
+        <a href="https://blueprint.hackclub.com/guilds/invite/bengaluru"
+           target="_blank" class="btn btn-primary">
+          Claim your spot →
+        </a>
+        <p class="rsvp-note">Open to teenagers aged 13–18 only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- ORGANIZERS -->
+<section class="alt" id="organizers">
+  <div class="inner">
+    <div class="label reveal">Ground Crew</div>
+    <h2 class="reveal">The team behind<br>the mission.</h2>
+    <p class="lead reveal">These are the Hack Clubbers running Cosmic Circuits. Reach out on Slack.</p>
+    <div class="org-grid reveal">
+      <div class="org-card">
+        <div class="org-pfp">Y</div>
+        <div class="org-name">Your Name</div>
+        <div class="org-role">Lead Organizer</div>
+        <a href="https://hackclub.com/slack" class="org-link">Contact on Slack</a>
+      </div>
+      <div class="org-card">
+        <div class="org-pfp">C</div>
+        <div class="org-name">Co-Organizer</div>
+        <div class="org-role">Organizer</div>
+        <a href="https://hackclub.com/slack" class="org-link">Contact on Slack</a>
+      </div>
+      <div class="org-card">
+        <div class="org-pfp">C</div>
+        <div class="org-name">Co-Organizer</div>
+        <div class="org-role">Organizer</div>
+        <a href="https://hackclub.com/slack" class="org-link">Contact on Slack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="inner">
+    <div class="label reveal">Comms Decoded</div>
+    <h2 class="reveal">Questions.</h2>
+    <p class="lead reveal">Still curious? Find us in <strong>#build-guild-bengaluru</strong> on Hack Club Slack.</p>
+    <div class="faq-wrap reveal">
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">What is Cosmic Circuits / Build Guild?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p>Cosmic Circuits is Bengaluru's edition of Build Guild — a 1-day hardware meetup running as part of Hack Club Blueprint's global week (April 13–19). Free, beginner-friendly, and open to any teen who wants to build, demo, and connect.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">Is it actually free?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p>100% free. Hack Club funds each guild per attendee. No tickets, no fees — you pay nothing. Food is also covered on the day.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">Do I need hardware or coding experience?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p>Not at all. Build Guilds welcome complete beginners alongside makers who've shipped 10+ projects. We run beginner workshops and open build time for those with their own work.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">Who can attend?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p>Any teen aged 13–18. You don't need to be a Hack Club member — if you're in that age range, you're in.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">Where is the venue?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p>The venue is being finalised. Sign up and you'll receive full venue details as soon as they're confirmed via your attendee dashboard.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">What should I bring?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p>A laptop (highly recommended), your phone (required), and any hardware projects you'd like to demo. Tools like soldering irons, multimeters, or breadboards are welcome — we may run some tournaments.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">What about a parental guide?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p>A parental guide will be published closer to the event. You'll receive it automatically once you sign up.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="faq(this)">What is Hack Club Blueprint?<span class="faq-icon">+</span></button>
+        <div class="faq-body"><p><a href="https://hackclub.com" target="_blank">Hack Club</a> is a nonprofit with 50,000+ teen makers worldwide. Blueprint is their hardware program built with AMD — giving teens real parts and grants up to $400 USD. <a href="https://blueprint.hackclub.com" target="_blank">Learn more →</a></p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="slack-strip">
+  <span class="slack-text">Questions? Find us on Slack — <strong>#build-guild-bengaluru</strong></span>
+  <a href="https://hackclub.com/slack" target="_blank" class="slack-btn">
+    <span class="slack-icon"></span>
+    Join Hack Club Slack
+  </a>
+</div>
+
+<footer>
+  <div class="ft-top">
+    <div class="ft-logo">Cosmic Circuits — Build Guild <span>Bengaluru</span></div>
+    <div class="ft-links">
+      <a href="https://hackclub.com" target="_blank">Hack Club</a>
+      <a href="https://blueprint.hackclub.com" target="_blank">Blueprint</a>
+      <a href="https://hackclub.com/slack" target="_blank">Slack</a>
+      <a href="#rsvp">Register</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+  <div class="ft-copy">A Hack Club Blueprint event · April 18, 2025 · Bengaluru, India</div>
+</footer>
+
+<script>
+/* STARFIELD — ultra-minimal */
+(function(){
+  const c=document.getElementById('stars'),ctx=c.getContext('2d');
+  let W,H,stars=[];
+  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;}
+  resize();addEventListener('resize',resize);
+  for(let i=0;i<120;i++) stars.push({
+    x:Math.random(),y:Math.random(),
+    r:Math.random()*.8+.1,
+    a:Math.random()*.5+.05,
+    da:(Math.random()-.5)*.0025,
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{
+      s.a+=s.da;if(s.a<.04||s.a>.6)s.da*=-1;
+      ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(180,210,255,${s.a})`;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* FAQ */
+function faq(btn){
+  const item=btn.parentElement,open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+/* SCROLL REVEAL */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
