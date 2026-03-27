@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-	// --- Mobile Menu Toggle ---
+	
 	const mobileBtn = document.querySelector('.mobile-menu-btn');
 	const navLinks = document.querySelector('.nav-links');
 
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		navLinks.classList.toggle('active');
 	});
 
-	// --- Intersection Observer for Scroll Animations ---
+
 	const revealElements = document.querySelectorAll('.reveal');
 	const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	revealElements.forEach(el => revealOnScroll.observe(el));
 
-	// --- FAQ Accordion ---
+
 	const faqItems = document.querySelectorAll('.faq-item');
 
 	faqItems.forEach(item => {
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		toggle.addEventListener('click', () => {
 			const isActive = item.classList.contains('active');
 
-			// Close all others
+
 			faqItems.forEach(otherItem => {
 				otherItem.classList.remove('active');
 				otherItem.querySelector('.faq-content').style.maxHeight = null;
@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-	// --- Interactive Node Network Canvas (Cosmic Circuits) ---
 	const canvas = document.getElementById('network-canvas');
 	const ctx = canvas.getContext('2d');
 
@@ -86,14 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			this.baseY = this.y;
 			this.density = (Math.random() * 30) + 1;
 		}
-		// In Particle class draw()
+
 		draw() {
 			ctx.beginPath();
 			ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-			// Add a slight "glow" to stars
+
 			ctx.shadowBlur = 5;
 			ctx.shadowColor = 'rgba(0, 229, 181, 0.5)';
-			ctx.fillStyle = `rgba(0, 229, 181, ${Math.random() * 0.5 + 0.5})`; // Twinkle effect
+			ctx.fillStyle = `rgba(0, 229, 181, ${Math.random() * 0.5 + 0.5})`; 
 			ctx.fill();
 			ctx.shadowBlur = 0; // Reset for performance
 		}
@@ -103,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 
 		update() {
-			// Connect to mouse interactions
+			
 			if (mouse.x != null) {
 				let dx = mouse.x - this.x;
 				let dy = mouse.y - this.y;
@@ -130,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			}
 
-			// Drift slowly
+
 			this.baseX += this.dx;
 			this.baseY += this.dy;
 
-			// Bounce off edges
+		
 			if (this.baseX < 0 || this.baseX > width) this.dx = -this.dx;
 			if (this.baseY < 0 || this.baseY > height) this.dy = -this.dy;
 
@@ -186,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		connectParticles();
 	}
 
-	// Init
+
 	resize();
 	initParticles();
 	animate();
