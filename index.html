@@ -11,412 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #06080A;
-      --bg-alt: #0A0E12;
-      --bg-card: rgba(14, 20, 26, 0.7);
-      --text: #DCE8F0;
-      --muted: #7A8FA0;
-      --accent: #00FFB2;
-      --accent2: #FF6B35;
-      --accent-glow: rgba(0, 255, 178, 0.12);
-      --border: rgba(255,255,255,0.07);
-      --border-bright: rgba(0, 255, 178, 0.3);
-      --ff-head: 'Syne', sans-serif;
-      --ff-body: 'DM Sans', sans-serif;
-      --ff-mono: 'IBM Plex Mono', monospace;
-      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--ff-body);
-      line-height: 1.65;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    ul { list-style: none; }
-
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
-
-    /* ── Canvas bg ── */
-    #network-canvas {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 0; opacity: 0.35; pointer-events: none;
-    }
-
-    /* ── Scan lines overlay ── */
-    .scanlines {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 1;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-    }
-
-    /* ── Navbar ── */
-    .navbar {
-      position: fixed; top: 0; left: 0; width: 100%; height: 72px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; z-index: 200;
-      background: rgba(6,8,10,0.75); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-brand {
-      font-family: var(--ff-head); font-size: 1.15rem; font-weight: 700;
-      display: flex; align-items: center; gap: 0.6rem; letter-spacing: -0.01em;
-    }
-    .brand-dot {
-      width: 10px; height: 10px; background: var(--accent); border-radius: 2px;
-      box-shadow: 0 0 12px var(--accent); animation: pulse 2s infinite;
-    }
-    .nav-links { display: flex; align-items: center; gap: 2rem; font-size: 0.875rem; font-weight: 500; }
-    .nav-links a { color: var(--muted); transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.btn-nav { color: var(--text); }
-    .btn-nav {
-      padding: 0.4rem 1rem; border: 1px solid var(--border-bright);
-      border-radius: 3px; color: var(--accent) !important;
-      font-family: var(--ff-mono); font-size: 0.8rem;
-      transition: all 0.2s !important;
-    }
-    .btn-nav:hover { background: var(--accent); color: var(--bg) !important; }
-    .mobile-menu-btn { display: none; background: none; border: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .mobile-menu-btn span { width: 22px; height: 1.5px; background: var(--text); display: block; transition: all 0.3s; }
-
-    /* ── Countdown Banner ── */
-    .countdown-banner {
-      position: relative; z-index: 10; margin-top: 72px;
-      background: linear-gradient(90deg, rgba(0,255,178,0.08) 0%, rgba(255,107,53,0.06) 100%);
-      border-bottom: 1px solid rgba(0,255,178,0.15);
-      padding: 0.75rem 2.5rem;
-      display: flex; align-items: center; justify-content: center; gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .countdown-label { font-family: var(--ff-mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-    .countdown-units { display: flex; gap: 1.5rem; align-items: center; }
-    .countdown-unit { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
-    .countdown-num {
-      font-family: var(--ff-mono); font-size: 1.5rem; font-weight: 600;
-      color: var(--accent); line-height: 1; min-width: 2ch; text-align: center;
-    }
-    .countdown-sub { font-family: var(--ff-mono); font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
-    .countdown-sep { font-family: var(--ff-mono); font-size: 1.2rem; color: var(--muted); opacity: 0.4; margin-bottom: 0.8rem; }
-
-    /* ── Buttons ── */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.85rem 1.75rem; font-family: var(--ff-head); font-weight: 600;
-      font-size: 0.95rem; border-radius: 3px; cursor: pointer; border: 1px solid transparent;
-      transition: all 0.25s var(--ease);
-    }
-    .btn-primary { background: var(--accent); color: var(--bg); box-shadow: 0 0 24px rgba(0,255,178,0.25); }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(0,255,178,0.35); }
-    .btn-secondary { background: transparent; border-color: var(--border); color: var(--muted); }
-    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-block { width: 100%; }
-
-    /* ── Hero ── */
-    .hero {
-      position: relative; min-height: calc(100vh - 72px - 52px);
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 5rem 2.5rem 4rem; z-index: 10;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.35rem 0.85rem; background: rgba(0,255,178,0.06);
-      border: 1px solid rgba(0,255,178,0.2); border-radius: 2px;
-      font-family: var(--ff-mono); font-size: 0.72rem; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem;
-    }
-    .hero-title {
-      font-family: var(--ff-head); font-size: clamp(3.5rem, 7vw, 6.5rem);
-      font-weight: 800; letter-spacing: -0.04em; line-height: 0.95;
-      margin-bottom: 1.5rem; max-width: 900px;
-    }
-    .hero-title em { font-style: normal; color: var(--accent); }
-    .hero-title .line2 { color: var(--muted); font-weight: 400; }
-    .hero-sub {
-      font-size: clamp(1rem, 1.8vw, 1.2rem); color: var(--muted);
-      margin-bottom: 2.5rem; max-width: 520px; line-height: 1.7;
-    }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
-    .hero-specs {
-      display: grid; grid-template-columns: repeat(4, auto); gap: 0;
-      background: var(--bg-card); backdrop-filter: blur(12px);
-      border: 1px solid var(--border); border-radius: 4px;
-      max-width: 700px; overflow: hidden;
-    }
-    .spec-item {
-      padding: 1.25rem 1.75rem; border-right: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 0.35rem;
-    }
-    .spec-item:last-child { border-right: none; }
-    .spec-label { font-family: var(--ff-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
-    .spec-value { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; }
-    .spec-value.accent { color: var(--accent); }
-
-    /* ── Sections ── */
-    .section { padding: 7rem 0; position: relative; z-index: 10; border-top: 1px solid var(--border); }
-    .bg-alt { background: var(--bg-alt); }
-    .container { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 2.5rem; }
-    .section-tag {
-      display: inline-block; font-family: var(--ff-mono); font-size: 0.7rem;
-      color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
-      margin-bottom: 1rem; opacity: 0.8;
-    }
-    .section-header { margin-bottom: 3.5rem; }
-    .section-header h2 {
-      font-family: var(--ff-head); font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.75rem;
-    }
-    .section-lead { font-size: 1.05rem; color: var(--muted); max-width: 560px; }
-
-    /* ── Feature grid ── */
-    .grid-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-    .feature-card {
-      background: var(--bg-card); padding: 2.25rem 2rem;
-      transition: background 0.3s;
-      position: relative;
-    }
-    .feature-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0;
-      background: var(--accent); transition: height 0.4s var(--ease);
-    }
-    .feature-card:hover::before { height: 100%; }
-    .feature-card:hover { background: rgba(0,255,178,0.03); }
-    .feature-num { font-family: var(--ff-mono); color: var(--accent); font-size: 0.75rem; margin-bottom: 1.25rem; opacity: 0.5; }
-    .feature-card h3 { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
-    .feature-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
-
-    /* ── What to bring (NEW) ── */
-    .bring-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-    .bring-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 4px; padding: 1.5rem;
-      display: flex; align-items: flex-start; gap: 1rem;
-      transition: border-color 0.25s, transform 0.25s;
-    }
-    .bring-card:hover { border-color: rgba(0,255,178,0.3); transform: translateY(-3px); }
-    .bring-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
-    .bring-text h4 { font-family: var(--ff-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
-    .bring-text p { font-size: 0.85rem; color: var(--muted); }
-    .bring-badge {
-      display: inline-block; font-family: var(--ff-mono); font-size: 0.6rem;
-      padding: 0.15rem 0.45rem; border-radius: 2px; margin-top: 0.4rem;
-      text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .badge-required { background: rgba(255,107,53,0.15); color: var(--accent2); border: 1px solid rgba(255,107,53,0.3); }
-    .badge-optional { background: rgba(0,255,178,0.08); color: var(--accent); border: 1px solid rgba(0,255,178,0.2); }
-    .badge-provided { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
-
-    /* ── Timeline (enhanced) ── */
-    .timeline { display: flex; flex-direction: column; gap: 0; max-width: 760px; }
-    .timeline-item {
-      display: grid; grid-template-columns: 80px 1fr;
-      gap: 2rem; position: relative; padding: 1.75rem 0;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-    }
-    .timeline-item:last-child { border-bottom: none; }
-    .timeline-item::after {
-      content: ''; position: absolute; left: 79px; top: 0; bottom: 0;
-      width: 1px; background: var(--border);
-    }
-    .tl-dot {
-      position: absolute; left: 74px; top: 2rem;
-      width: 11px; height: 11px; border-radius: 50%;
-      background: var(--bg); border: 2px solid var(--muted);
-      z-index: 2; transition: all 0.3s;
-    }
-    .timeline-item.active .tl-dot, .timeline-item:hover .tl-dot {
-      background: var(--accent); border-color: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
-    }
-    .tl-time {
-      font-family: var(--ff-mono); color: var(--muted); font-size: 0.8rem;
-      text-align: right; padding-top: 0.2rem; padding-right: 0.5rem;
-    }
-    .tl-body { padding-left: 1rem; }
-    .tl-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.4rem; }
-    .tl-body h4 { font-family: var(--ff-head); font-size: 1.1rem; font-weight: 700; }
-    .tl-pill {
-      font-family: var(--ff-mono); font-size: 0.6rem; padding: 0.15rem 0.5rem;
-      border-radius: 2px; text-transform: uppercase; letter-spacing: 0.07em;
-    }
-    .pill-workshop { background: rgba(0,255,178,0.1); color: var(--accent); border: 1px solid rgba(0,255,178,0.25); }
-    .pill-social { background: rgba(255,107,53,0.1); color: var(--accent2); border: 1px solid rgba(255,107,53,0.25); }
-    .pill-build { background: rgba(130,80,255,0.1); color: #A78BFA; border: 1px solid rgba(130,80,255,0.25); }
-    .pill-showcase { background: rgba(255,213,0,0.08); color: #FBBF24; border: 1px solid rgba(255,213,0,0.2); }
-    .tl-body p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
-    .tl-detail { margin-top: 1rem; padding: 1rem; background: rgba(0,255,178,0.04); border: 1px solid rgba(0,255,178,0.1); border-radius: 3px; display: none; }
-    .timeline-item.open .tl-detail { display: block; }
-    .tl-detail ul { display: flex; flex-direction: column; gap: 0.4rem; }
-    .tl-detail li { font-family: var(--ff-mono); font-size: 0.8rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }
-    .tl-detail li::before { content: '→'; color: var(--accent); }
-    .tl-expand { font-family: var(--ff-mono); font-size: 0.7rem; color: var(--muted); cursor: pointer; margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.3rem; transition: color 0.2s; }
-    .tl-expand:hover { color: var(--accent); }
-    .expand-arrow { transition: transform 0.3s; display: inline-block; }
-    .timeline-item.open .expand-arrow { transform: rotate(90deg); }
-
-    /* ── Workshop checklist (NEW) ── */
-    .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .checklist-card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 4px; padding: 1.75rem;
-    }
-    .checklist-card h4 { font-family: var(--ff-head); font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
-    .checklist-card h4 .ch-icon { font-size: 1.1rem; }
-    .checklist-items { display: flex; flex-direction: column; gap: 0.6rem; }
-    .check-item {
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.5rem 0.6rem; border-radius: 3px; cursor: pointer;
-      transition: background 0.2s; user-select: none;
-    }
-    .check-item:hover { background: rgba(255,255,255,0.04); }
-    .check-box {
-      width: 18px; height: 18px; border: 1.5px solid var(--muted);
-      border-radius: 3px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s; font-size: 0.65rem;
-    }
-    .check-item.checked .check-box { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-    .check-item.checked .check-label { color: var(--muted); text-decoration: line-through; }
-    .check-label { font-size: 0.875rem; transition: color 0.2s; }
-    .progress-bar-wrap { margin-top: 1.25rem; }
-    .progress-info { display: flex; justify-content: space-between; font-family: var(--ff-mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 0.4rem; }
-    .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s var(--ease); width: 0%; }
-
-    /* ── Organizers ── */
-    .organizer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
-    .org-card {
-      display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem;
-      background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px;
-      transition: border-color 0.25s;
-    }
-    .org-card:hover { border-color: rgba(0,255,178,0.25); }
-    .org-avatar {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--border); overflow: hidden; flex-shrink: 0;
-      border: 2px solid var(--border);
-    }
-    .org-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .org-info h4 { font-family: var(--ff-head); font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
-    .org-info span { display: block; font-family: var(--ff-mono); font-size: 0.65rem; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.08em; }
-    .org-info a { font-size: 0.82rem; color: var(--muted); border-bottom: 1px solid transparent; transition: all 0.2s; }
-    .org-info a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-
-    /* ── RSVP ── */
-    .rsvp-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .rsvp-content h2 { font-family: var(--ff-head); font-size: clamp(2rem, 3vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; }
-    .perks-list { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem; }
-    .perks-list li {
-      display: flex; align-items: center; gap: 0.85rem;
-      font-size: 0.9rem; color: var(--muted); padding: 0.6rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .perks-list li:last-child { border-bottom: none; }
-    .perks-list li::before {
-      content: '✓'; width: 20px; height: 20px; display: inline-flex;
-      align-items: center; justify-content: center;
-      background: rgba(0,255,178,0.1); color: var(--accent); border-radius: 3px; font-size: 0.7rem; flex-shrink: 0;
-    }
-    .action-card {
-      background: var(--bg); border: 1px solid var(--accent); border-radius: 6px;
-      padding: 2.5rem; text-align: center;
-      box-shadow: 0 0 60px rgba(0,255,178,0.06), inset 0 0 60px rgba(0,255,178,0.03);
-    }
-    .action-card h3 { font-family: var(--ff-head); font-size: 1.75rem; font-weight: 800; margin-bottom: 0.75rem; }
-    .action-card p { color: var(--muted); margin-bottom: 1.75rem; font-size: 0.95rem; }
-    .action-card .note { display: block; margin-top: 1.25rem; font-family: var(--ff-mono); font-size: 0.7rem; color: var(--muted); }
-    .spots-bar { margin-bottom: 1.5rem; }
-    .spots-info { display: flex; justify-content: space-between; font-family: var(--ff-mono); font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
-    .spots-fill-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
-    .spots-fill { height: 100%; width: 62%; background: linear-gradient(90deg, var(--accent), #00C896); border-radius: 2px; }
-
-    /* ── FAQ ── */
-    .faq-container { max-width: 760px; }
-    .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-item:first-child { border-top: 1px solid var(--border); }
-    .faq-toggle {
-      width: 100%; display: flex; justify-content: space-between; align-items: center;
-      padding: 1.35rem 0; background: none; border: none; color: var(--text);
-      font-family: var(--ff-head); font-size: 1rem; font-weight: 600;
-      text-align: left; cursor: pointer; transition: color 0.2s;
-    }
-    .faq-toggle:hover { color: var(--accent); }
-    .faq-icon { width: 18px; height: 18px; position: relative; flex-shrink: 0; }
-    .faq-icon::before, .faq-icon::after {
-      content: ''; position: absolute; background: var(--accent);
-      top: 50%; left: 50%; transform: translate(-50%, -50%); transition: all 0.3s;
-    }
-    .faq-icon::before { width: 12px; height: 1.5px; }
-    .faq-icon::after { width: 1.5px; height: 12px; }
-    .faq-item.active .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
-    .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    .faq-content p { padding-bottom: 1.35rem; color: var(--muted); font-size: 0.92rem; }
-
-    /* ── Footer ── */
-    .footer { border-top: 1px solid var(--border); padding: 4rem 0 2rem; background: var(--bg-alt); }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-    .footer-brand h3 { font-family: var(--ff-head); font-size: 1.35rem; font-weight: 800; margin-bottom: 0.75rem; }
-    .footer-brand p { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
-    .footer-links { display: flex; flex-direction: column; gap: 0.85rem; }
-    .footer-links h4 { font-family: var(--ff-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.25rem; }
-    .footer-links a { color: var(--muted); font-size: 0.875rem; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--accent); }
-    .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.75rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
-    .footer-bottom p { color: var(--muted); font-size: 0.8rem; font-family: var(--ff-mono); }
-    .footer-coords { font-family: var(--ff-mono); font-size: 0.7rem; color: var(--muted); opacity: 0.4; }
-
-    /* ── Reveal ── */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
-    .reveal.active { opacity: 1; transform: none; }
-    .d1 { transition-delay: 0.08s; }
-    .d2 { transition-delay: 0.16s; }
-    .d3 { transition-delay: 0.24s; }
-    .d4 { transition-delay: 0.32s; }
-
-    /* ── Pulse ── */
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(0,255,178,0.4); }
-      70% { box-shadow: 0 0 0 8px rgba(0,255,178,0); }
-      100% { box-shadow: 0 0 0 0 rgba(0,255,178,0); }
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 992px) {
-      .hero-specs { grid-template-columns: 1fr 1fr; }
-      .rsvp-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
-    }
-    @media (max-width: 768px) {
-      .navbar { padding: 0 1.25rem; }
-      .nav-links {
-        position: fixed; top: 72px; left: 0; width: 100%;
-        background: rgba(6,8,10,0.98); backdrop-filter: blur(20px);
-        flex-direction: column; padding: 1.5rem;
-        border-bottom: 1px solid var(--border);
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-        transition: clip-path 0.4s ease;
-        gap: 1rem;
-      }
-      .nav-links.active { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-      .mobile-menu-btn { display: flex; }
-      .hero { padding: 3rem 1.25rem 2rem; }
-      .hero-specs { grid-template-columns: 1fr 1fr; }
-      .spec-item { border-right: none; border-bottom: 1px solid var(--border); }
-      .spec-item:nth-child(odd) { border-right: 1px solid var(--border); }
-      .container { padding: 0 1.25rem; }
-      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .timeline-item { grid-template-columns: 60px 1fr; gap: 1.25rem; }
-      .countdown-banner { padding: 0.75rem 1.25rem; gap: 1rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -428,8 +23,8 @@
   <div class="nav-brand"><span class="brand-dot"></span>Cosmic Circuits</div>
   <ul class="nav-links">
     <li><a href="#overview">Overview</a></li>
-    <li><a href="#agenda">Schedule</a></li>
     <li><a href="#checklist">Prep</a></li>
+    <li><a href="#agenda">Schedule</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#rsvp" class="btn-nav">Register →</a></li>
   </ul>
@@ -485,12 +80,31 @@
       <p class="section-lead">Part of Hack Club Blueprint's global Build Guilds week running April 13–19 across 100+ cities. Every guild is local. Every build is real.</p>
     </div>
     <div class="grid-features">
-      <div class="feature-card reveal"><div class="feature-num">01</div><h3>The Audience</h3><p>Any teen aged 13–18. Zero hardware experience required — bring curiosity and a phone. Beginners and serial makers both welcome.</p></div>
-      <div class="feature-card reveal d1"><div class="feature-num">02</div><h3>The Space</h3><p>A curated, hardware-friendly space in Bengaluru. Venue confirmed closer to the event — sign up to get the details direct.</p></div>
+      <div class="feature-card reveal"><div class="feature-num">01</div><h3>The Audience</h3><p>Any teen aged 13–18. Zero hardware experience required. Bring curiosity and a phone. Beginners and serial makers both welcome.</p></div>
+      <div class="feature-card reveal d1"><div class="feature-num">02</div><h3>The Space</h3><p>A curated, hardware-friendly space in Bengaluru. Venue confirmed closer to the event sign up to get the details direct.</p></div>
       <div class="feature-card reveal d2"><div class="feature-num">03</div><h3>The Build</h3><p>Workshops, project demos, lightning talks, soldering sessions, open build time. Makers colliding at full speed for one full day.</p></div>
-      <div class="feature-card reveal"><div class="feature-num">04</div><h3>The Cost</h3><p>Completely free. Hack Club funds each guild per attendee — food, venue, and materials included. You bring the ideas.</p></div>
-      <div class="feature-card reveal d1"><div class="feature-num">05</div><h3>The Scale</h3><p>100+ guilds running globally the same week. Same energy, same mission — Bengaluru on the map alongside every other city.</p></div>
-      <div class="feature-card reveal d2"><div class="feature-num">06</div><h3>Blueprint</h3><p>Hack Club's hardware program, built with AMD. Grants up to $400 USD for advanced builds, real parts, real guidance for teen makers.</p></div>
+      <div class="feature-card reveal"><div class="feature-num">04</div><h3>The Cost</h3><p>Completely free. Hack Club funds each guild per attendee: food, venue, and materials included. You bring the ideas.</p></div>
+      <div class="feature-card reveal d1"><div class="feature-num">05</div><h3>The Scale</h3><p>100+ guilds running globally the same week. Same energy, same mission. Bengaluru on the map alongside every other city.</p></div>
+      <div class="feature-card reveal d2"><div class="feature-num">06</div><h3>Blueprint</h3><p>Hack Club's hardware program, built with AMD. Real parts, real guidance, and genuine support for teen makers building ambitious projects.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Destination -->
+<section id="destination" class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">02 // Destination</span>
+      <h2>Where we're headed.</h2>
+    </div>
+    <div class="reveal" style="display:flex; flex-direction:column; align-items:flex-start; gap:1.75rem; max-width:640px;">
+      <p style="font-size:1.05rem; color:var(--muted); line-height:1.75;">
+        Bengaluru is just the launchpad. Cosmic Circuits is part of a global wave of builders — over 100 cities, one shared week, all making something real. Whether you're soldering your first circuit or shipping your tenth project, this is where the next chapter starts. The road ahead is wide open.
+      </p>
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:0.6rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        Let's Hit The Road!!!
+      </a>
     </div>
   </div>
 </section>
@@ -499,9 +113,9 @@
 <section id="checklist" class="section bg-alt">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag">02 // Pre-Launch Checklist</span>
+      <span class="section-tag">03 // Pre-Launch Checklist</span>
       <h2>What to bring.</h2>
-      <p class="section-lead">Pack light, bring your curiosity. Here's everything you need — and what we'll have for you.</p>
+      <p class="section-lead">Pack light, bring your curiosity. Here's everything you need and what we'll have for you.</p>
     </div>
     <div class="bring-grid reveal">
       <div class="bring-card">
@@ -509,8 +123,8 @@
         <div class="bring-text"><h4>Photo ID / School Card</h4><p>For check-in verification. Any school-issued ID works.</p><span class="bring-badge badge-required">Required</span></div>
       </div>
       <div class="bring-card">
-        <div class="bring-icon">📱</div>
-        <div class="bring-text"><h4>Phone / Laptop</h4><p>For flashing firmware, looking things up, or documenting your build.</p><span class="bring-badge badge-required">Required</span></div>
+        <div class="bring-icon">💻</div>
+        <div class="bring-text"><h4>Laptop</h4><p>For flashing firmware, looking things up, or documenting your build.</p><span class="bring-badge badge-required">Required</span></div>
       </div>
       <div class="bring-card">
         <div class="bring-icon">🔋</div>
@@ -593,7 +207,7 @@
 <section id="agenda" class="section">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag">03 // Flight Plan</span>
+      <span class="section-tag">04 // Flight Plan</span>
       <h2>Schedule.</h2>
       <p class="section-lead">Tap any session to see what's happening inside.</p>
     </div>
@@ -602,12 +216,12 @@
         <div class="tl-dot"></div>
         <div class="tl-time">10:00</div>
         <div class="tl-body">
-          <div class="tl-head"><h4>Doors Open — Launch Sequence</h4><span class="tl-pill pill-social">Social</span></div>
+          <div class="tl-head"><h4>Doors Open Launch Sequence</h4><span class="tl-pill pill-social">Social</span></div>
           <p>Check-in, collect your badge, meet the ground crew and fellow builders.</p>
           <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
           <div class="tl-detail"><ul>
             <li>Collect your builder badge at the check-in desk</li>
-            <li>Explore the space — hardware stations, maker wall</li>
+            <li>Explore the space hardware stations, maker wall</li>
             <li>Introduce yourself to other attendees</li>
           </ul></div>
         </div>
@@ -620,8 +234,7 @@
           <p>What Blueprint is, what we're building today, and how the day works.</p>
           <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
           <div class="tl-detail"><ul>
-            <li>Introduction to Hack Club Blueprint & AMD partnership</li>
-            <li>How the $400 hardware grant works</li>
+            <li>Introduction to Hack Club Blueprint &amp; AMD partnership</li>
             <li>Day overview and what to expect</li>
           </ul></div>
         </div>
@@ -634,7 +247,7 @@
           <p>Beginner-friendly hands-on session. Solder something, break something, learn something.</p>
           <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
           <div class="tl-detail"><ul>
-            <li>Guided soldering — no experience needed</li>
+            <li>Guided soldering no experience needed</li>
             <li>Intro to microcontrollers (Arduino / RP2040)</li>
             <li>Circuit basics: voltage, current, resistors</li>
             <li>Build a take-home starter circuit</li>
@@ -650,7 +263,7 @@
           <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
           <div class="tl-detail"><ul>
             <li>Free lunch for all attendees</li>
-            <li>Informal networking — share what you're building</li>
+            <li>Informal networking share what you're building</li>
           </ul></div>
         </div>
       </div>
@@ -677,7 +290,7 @@
           <p>Present your builds to the guild. Prizes. Recognition. Applause.</p>
           <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
           <div class="tl-detail"><ul>
-            <li>2-min demos — share what you built or hacked</li>
+            <li>2-min demos share what you built or hacked</li>
             <li>Guild voting on favourite projects</li>
             <li>Prizes for best build, most creative, best beginner</li>
             <li>Group photo + Slack community shoutout</li>
@@ -692,7 +305,7 @@
 <section id="organizers" class="section bg-alt">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag">04 // Ground Crew</span>
+      <span class="section-tag">05 // Ground Crew</span>
       <h2>The team behind the mission.</h2>
     </div>
     <div class="organizer-grid">
@@ -708,6 +321,14 @@
         <div class="org-avatar"><img src="https://i.ibb.co/YFjy3nry/Whats-App-Image-2026-03-25-at-7-27-23-PM.jpg" alt="Sreelaya" /></div>
         <div class="org-info"><h4>TS Sreelaya</h4><span>Organizer</span><a href="https://hackclub.enterprise.slack.com/team/U0A1MTJDESX" target="_blank">Contact on Slack</a></div>
       </div>
+      <div class="org-card reveal d3">
+        <div class="org-avatar"><img src="" alt="Trinabh" style="background:var(--bg-card);" /></div>
+        <div class="org-info"><h4>Trinabh Anand</h4><span>Organizer</span><a href="" target="_blank">Contact on Slack</a></div>
+      </div>
+      <div class="org-card reveal d4">
+        <div class="org-avatar"><img src="" alt="Ryaan" style="background:var(--bg-card);" /></div>
+        <div class="org-info"><h4>Ryaan Ahmed</h4><span>Organizer</span><a href="" target="_blank">Contact on Slack</a></div>
+      </div>
     </div>
   </div>
 </section>
@@ -717,14 +338,13 @@
   <div class="container">
     <div class="rsvp-wrapper reveal">
       <div class="rsvp-content">
-        <span class="section-tag">05 // Boarding Pass</span>
+        <span class="section-tag">06 // Boarding Pass</span>
         <h2>Reserve your seat in Bengaluru.</h2>
         <ul class="perks-list">
           <li>100% free to attend</li>
           <li>Food provided on the day</li>
-          <li>All hardware & tools supplied</li>
+          <li>All hardware &amp; tools supplied</li>
           <li>Meet Bengaluru's builder community</li>
-          <li>Eligible for $400 Blueprint hardware grant</li>
         </ul>
       </div>
       <div class="rsvp-action">
@@ -732,8 +352,8 @@
           <h3>Ready for Launch?</h3>
           <p>Registration takes under a minute. Your spot in orbit is waiting.</p>
           <div class="spots-bar">
-            <div class="spots-info"><span>Spots claimed</span><span style="color:var(--accent)">62%</span></div>
-            <div class="spots-fill-track"><div class="spots-fill"></div></div>
+            <div class="spots-info"><span>Spots claimed</span><span style="color:var(--accent)">92%</span></div>
+            <div class="spots-fill-track"><div class="spots-fill" style="width:92%"></div></div>
           </div>
           <a href="https://blueprint.hackclub.com/guilds/invite/bengaluru" target="_blank" class="btn btn-primary btn-block">Claim your spot →</a>
           <span class="note">Open to teenagers aged 13–18 only.</span>
@@ -743,21 +363,58 @@
   </div>
 </section>
 
+<!-- Sponsors -->
+<section id="sponsors" class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">07 // Sponsors</span>
+      <h2>Backed by great people.</h2>
+      <p class="section-lead">The organisations and individuals making this possible.</p>
+    </div>
+    <div class="reveal" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:1.25rem;">
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq" class="section bg-alt">
   <div class="container faq-container">
     <div class="section-header reveal">
-      <span class="section-tag">06 // Comms Decoded</span>
+      <span class="section-tag">08 // Comms Decoded</span>
       <h2>Questions?</h2>
     </div>
     <div class="faq-list reveal">
       <div class="faq-item">
         <button class="faq-toggle">What is Cosmic Circuits / Build Guild?<span class="faq-icon"></span></button>
-        <div class="faq-content"><p>Cosmic Circuits is Bengaluru's edition of Build Guild — a 1-day hardware meetup running as part of Hack Club Blueprint's global week (April 13–19). Free, beginner-friendly, and open to any teen who wants to build, demo, and connect.</p></div>
+        <div class="faq-content"><p>Cosmic Circuits is Bengaluru's edition of Build Guild a 1-day hardware meetup running as part of Hack Club Blueprint's global week (April 13–19). Free, beginner-friendly, and open to any teen who wants to build, demo, and connect.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-toggle">Is it actually free?<span class="faq-icon"></span></button>
-        <div class="faq-content"><p>100% free. Hack Club funds each guild per attendee. No tickets, no fees — you pay nothing. Food is also covered on the day.</p></div>
+        <div class="faq-content"><p>100% free. Hack Club funds each guild per attendee. No tickets, no fees you pay nothing. Food is also covered on the day.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-toggle">Do I need hardware or coding experience?<span class="faq-icon"></span></button>
@@ -765,15 +422,11 @@
       </div>
       <div class="faq-item">
         <button class="faq-toggle">Who can attend?<span class="faq-icon"></span></button>
-        <div class="faq-content"><p>Any teen aged 13–18. You don't need to be a Hack Club member — if you're in that age range, you're in.</p></div>
+        <div class="faq-content"><p>Any teen aged 13–18. You don't need to be a Hack Club member if you're in that age range, you're in.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-toggle">Where is the venue?<span class="faq-icon"></span></button>
         <div class="faq-content"><p>The venue is being finalised. Sign up and you'll receive full venue details as soon as they're confirmed via your attendee dashboard.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-toggle">What is the $400 Blueprint grant?<span class="faq-icon"></span></button>
-        <div class="faq-content"><p>Hack Club Blueprint (built with AMD) offers hardware grants up to $400 USD for teens building ambitious projects. Attending a Build Guild is a great first step — organizers can connect you with the application process on the day.</p></div>
       </div>
     </div>
   </div>
@@ -784,7 +437,7 @@
   <div class="container footer-grid">
     <div class="footer-brand">
       <h3>Cosmic Circuits</h3>
-      <p>A Hack Club Blueprint event<br>April 14, 2026 · Bengaluru, India<br><br>Part of the global Build Guilds week — 100+ cities, one mission.</p>
+      <p>A Hack Club Blueprint event<br>April 14, 2026 · Bengaluru, India<br><br>Part of the global Build Guilds week 100+ cities, one mission.</p>
     </div>
     <div class="footer-links">
       <h4>Navigate</h4>
@@ -807,120 +460,6 @@
   </div>
 </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-  // ── Mobile nav ──
-  const mobileBtn = document.querySelector('.mobile-menu-btn');
-  const navLinks = document.querySelector('.nav-links');
-  mobileBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
-
-  // ── Reveal on scroll ──
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add('active'); obs.unobserve(e.target); });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => io.observe(el));
-
-  // ── FAQ ──
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.querySelector('.faq-toggle').addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-      document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('active'); i.querySelector('.faq-content').style.maxHeight = null; });
-      if (!isActive) { item.classList.add('active'); item.querySelector('.faq-content').style.maxHeight = item.querySelector('.faq-content').scrollHeight + 'px'; }
-    });
-  });
-
-  // ── Countdown ──
-  const target = new Date('2026-04-14T10:00:00+05:30');
-  function updateCountdown() {
-    const now = new Date();
-    const diff = target - now;
-    if (diff <= 0) {
-      document.getElementById('cd-days').textContent = '00';
-      document.getElementById('cd-hours').textContent = '00';
-      document.getElementById('cd-mins').textContent = '00';
-      document.getElementById('cd-secs').textContent = '00';
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
-    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  // ── Canvas particles ──
-  const canvas = document.getElementById('network-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-  const mouse = { x: null, y: null };
-  window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
-  window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  window.addEventListener('resize', () => { resize(); initParticles(); });
-
-  class P {
-    constructor() {
-      this.x = this.bx = Math.random() * W;
-      this.y = this.by = Math.random() * H;
-      this.dx = (Math.random() - 0.5) * 0.4;
-      this.dy = (Math.random() - 0.5) * 0.4;
-      this.s = Math.random() * 1.5 + 0.5;
-      this.density = Math.random() * 25 + 5;
-    }
-    draw() {
-      ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,255,178,${Math.random() * 0.4 + 0.4})`; ctx.fill();
-    }
-    update() {
-      if (mouse.x !== null) {
-        const dx = mouse.x - this.x, dy = mouse.y - this.y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 130) { this.x -= (dx/dist) * ((130 - dist) / 130) * this.density; this.y -= (dy/dist) * ((130 - dist) / 130) * this.density; }
-        else { this.x += (this.bx - this.x) / 12; this.y += (this.by - this.y) / 12; }
-      }
-      this.bx += this.dx; this.by += this.dy;
-      if (this.bx < 0 || this.bx > W) this.dx *= -1;
-      if (this.by < 0 || this.by > H) this.dy *= -1;
-      if (mouse.x === null) { this.x = this.bx; this.y = this.by; }
-      this.draw();
-    }
-  }
-
-  function initParticles() { particles = []; const n = (W * H) / 10000; for (let i = 0; i < n; i++) particles.push(new P()); }
-  function connect() {
-    for (let a = 0; a < particles.length; a++) for (let b = a+1; b < particles.length; b++) {
-      const dx = particles[a].x - particles[b].x, dy = particles[a].y - particles[b].y;
-      const d = dx*dx + dy*dy, max = (W/5) * (H/5);
-      if (d < max) { ctx.strokeStyle = `rgba(0,255,178,${(1 - d/max) * 0.06})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke(); }
-    }
-  }
-  function animate() { requestAnimationFrame(animate); ctx.clearRect(0,0,W,H); particles.forEach(p => p.update()); connect(); }
-  resize(); initParticles(); animate();
-});
-
-// ── Timeline toggle (global) ──
-function toggleTimeline(item) {
-  item.classList.toggle('open');
-}
-
-// ── Checklist toggle (global) ──
-function toggleCheck(el) {
-  el.classList.toggle('checked');
-  const card = el.closest('.checklist-card');
-  const items = card.querySelectorAll('.check-item');
-  const checked = card.querySelectorAll('.check-item.checked').length;
-  const total = items.length;
-  card.querySelector('.cl-count').textContent = `${checked} / ${total}`;
-  card.querySelector('.progress-fill').style.width = `${(checked / total) * 100}%`;
-}
-</script>
+<script src="script.js"></script>
 </body>
 </html>
