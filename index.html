@@ -1,450 +1,465 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta property="og:title" content="Cosmic Circuits" />
-        <meta
-            property="og:description"
-            content="Cosmic Circuits - Build Guild Bengaluru. Hack Club Blueprint's hardware meetup. April 14, 2026."
-        />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="Cosmic Circuits" />
+  <meta property="og:description" content="Cosmic Circuits - Build Guild Bengaluru. Hack Club Blueprint's hardware meetup. April 14, 2026." />
+  <meta property="og:url" content="https://voidconsole.github.io/cosmicircuits/" />
+  <meta property="og:type" content="website">
+  <title>Cosmic Circuits - Build Guild Bengaluru</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-<meta property="og:image" content="./fav2.png" />
-<meta property="og:url" content="https://voidconsole.github.io/cosmicircuits/" />
-<meta property="og:type" content="website">
+<canvas id="network-canvas"></canvas>
+<div class="scanlines"></div>
 
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="nav-brand"><span class="brand-dot"></span>Cosmic Circuits</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#checklist">Prep</a></li>
+    <li><a href="#agenda">Schedule</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#rsvp" class="btn-nav">Register →</a></li>
+  </ul>
+  <button class="mobile-menu-btn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
+<!-- Countdown Banner -->
+<div class="countdown-banner">
+  <span class="countdown-label">Mission launches in</span>
+  <div class="countdown-units">
+    <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-sub">days</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-sub">hrs</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-sub">min</span></div>
+    <span class="countdown-sep">:</span>
+    <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-sub">sec</span></div>
+  </div>
+  <span class="countdown-label">· Apr 14, 2026 · Bengaluru</span>
+</div>
 
-        <title>Cosmic Circuits - Build Guild Bengaluru</title>
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-tag reveal"><span style="color:var(--accent)">⬡</span> Hack Club Blueprint · Build Guilds 2026</div>
+  <h1 class="hero-title reveal d1">
+    Cosmic<br>
+    <em>Circuits.</em><br>
+    <span class="line2">Bengaluru.</span>
+  </h1>
+  <p class="hero-sub reveal d2">
+    One day. Real hardware. 100+ cities building simultaneously.<br>Solder. Build. Launch.
+  </p>
+  <div class="hero-actions reveal d3">
+    <a href="#rsvp" class="btn btn-primary">Join the Guild</a>
+    <a href="#checklist" class="btn btn-secondary">What to bring</a>
+  </div>
+  <div class="hero-specs reveal d4">
+    <div class="spec-item"><span class="spec-label">Date</span><span class="spec-value accent">Apr 14</span></div>
+    <div class="spec-item"><span class="spec-label">Location</span><span class="spec-value">Bengaluru</span></div>
+    <div class="spec-item"><span class="spec-label">Entry</span><span class="spec-value">Free</span></div>
+    <div class="spec-item"><span class="spec-label">Age</span><span class="spec-value">13–18</span></div>
+  </div>
+</header>
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-            rel="stylesheet"
-        />
-	
-        <link rel="stylesheet" href="style.css" />
-	<link rel="icon" type="image/png" href="./fav2.png" />
-	add favion
-    </head>
-    <body>
-        <canvas id="network-canvas"></canvas>
-        <div class="noise-overlay"></div>
+<!-- Overview -->
+<section id="overview" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">01 // Mission Overview</span>
+      <h2>Bengaluru's 1-day hardware mission.</h2>
+      <p class="section-lead">Part of Hack Club Blueprint's global Build Guilds week running April 13–19 across 100+ cities. Every guild is local. Every build is real.</p>
+    </div>
+    <div class="grid-features">
+      <div class="feature-card reveal"><div class="feature-num">01</div><h3>The Audience</h3><p>Any teen aged 13–18. Zero hardware experience required. Bring curiosity and a phone. Beginners and serial makers both welcome.</p></div>
+      <div class="feature-card reveal d1"><div class="feature-num">02</div><h3>The Space</h3><p>A curated, hardware-friendly space in Bengaluru. Venue confirmed closer to the event sign up to get the details direct.</p></div>
+      <div class="feature-card reveal d2"><div class="feature-num">03</div><h3>The Build</h3><p>Workshops, project demos, lightning talks, soldering sessions, open build time. Makers colliding at full speed for one full day.</p></div>
+      <div class="feature-card reveal"><div class="feature-num">04</div><h3>The Cost</h3><p>Completely free. Hack Club funds each guild per attendee: food, venue, and materials included. You bring the ideas.</p></div>
+      <div class="feature-card reveal d1"><div class="feature-num">05</div><h3>The Scale</h3><p>100+ guilds running globally the same week. Same energy, same mission. Bengaluru on the map alongside every other city.</p></div>
+      <div class="feature-card reveal d2"><div class="feature-num">06</div><h3>Blueprint</h3><p>Hack Club's hardware program, built with AMD. Real parts, real guidance, and genuine support for teen makers building ambitious projects.</p></div>
+    </div>
+  </div>
+</section>
 
-        <nav class="navbar">
-            <div class="nav-brand">
-                <span class="brand-icon"></span>
-                Cosmic Circuits
-            </div>
-            <ul class="nav-links">
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#agenda">Flight Plan</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#rsvp" class="btn btn-nav">Register</a></li>
-            </ul>
-            <button class="mobile-menu-btn" aria-label="Toggle menu">
-                <span></span><span></span><span></span>
-            </button>
-        </nav>
+<!-- Destination -->
+<section id="destination" class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">02 // Destination</span>
+      <h2>Where we're headed.</h2>
+    </div>
+    <div class="reveal" style="display:flex; flex-direction:column; align-items:flex-start; gap:1.75rem; max-width:640px;">
+      <p style="font-size:1.05rem; color:var(--muted); line-height:1.75;">
+        Bengaluru is just the launchpad. Cosmic Circuits is part of a global wave of builders — over 100 cities, one shared week, all making something real. Whether you're soldering your first circuit or shipping your tenth project, this is where the next chapter starts. The road ahead is wide open.
+      </p>
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:0.6rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        Let's Hit The Road!!!
+      </a>
+    </div>
+  </div>
+</section>
 
-        <header class="hero">
-            <div class="hero-content">
-                <div class="status-badge reveal">
-                    <span class="pulse-dot"></span>
-                    <span class="status-text"
-                        >Hack Club Blueprint · Build Guilds 2026</span
-                    >
-                </div>
+<!-- What to Bring -->
+<section id="checklist" class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">03 // Pre-Launch Checklist</span>
+      <h2>What to bring.</h2>
+      <p class="section-lead">Pack light, bring your curiosity. Here's everything you need and what we'll have for you.</p>
+    </div>
+    <div class="bring-grid reveal">
+      <div class="bring-card">
+        <div class="bring-icon">🪪</div>
+        <div class="bring-text"><h4>Photo ID / School Card</h4><p>For check-in verification. Any school-issued ID works.</p><span class="bring-badge badge-required">Required</span></div>
+      </div>
+      <div class="bring-card">
+        <div class="bring-icon">💻</div>
+        <div class="bring-text"><h4>Laptop</h4><p>For flashing firmware, looking things up, or documenting your build.</p><span class="bring-badge badge-required">Required</span></div>
+      </div>
+      <div class="bring-card">
+        <div class="bring-icon">🔋</div>
+        <div class="bring-text"><h4>Power Bank + Cable</h4><p>Keep your devices alive during the day.</p><span class="bring-badge badge-optional">Optional</span></div>
+      </div>
+      <div class="bring-card">
+        <div class="bring-icon">📓</div>
+        <div class="bring-text"><h4>Notebook</h4><p>For sketching circuits, jotting ideas, or catching workshop tips.</p><span class="bring-badge badge-optional">Optional</span></div>
+      </div>
+      <div class="bring-card">
+        <div class="bring-icon">🛠️</div>
+        <div class="bring-text"><h4>Your Project (if any)</h4><p>Working on something? Bring it. You'll get feedback and build time.</p><span class="bring-badge badge-optional">Optional</span></div>
+      </div>
+      <div class="bring-card">
+        <div class="bring-icon">🍱</div>
+        <div class="bring-text"><h4>Lunch & Snacks</h4><p>Provided on the day. No need to pack food.</p><span class="bring-badge badge-provided">Provided</span></div>
+      </div>
+      <div class="bring-card">
+        <div class="bring-icon">⚡</div>
+        <div class="bring-text"><h4>Soldering Equipment</h4><p>Stations, irons, and components are all supplied for workshops.</p><span class="bring-badge badge-provided">Provided</span></div>
+      </div>
+      <div class="bring-card">
+        <div class="bring-icon">🔩</div>
+        <div class="bring-text"><h4>Components & Parts</h4><p>Basic parts, breadboards, and sensors provided for everyone.</p><span class="bring-badge badge-provided">Provided</span></div>
+      </div>
+    </div>
 
-                <h1 class="hero-title reveal delay-1">
-                    Cosmic<br />
-                    <span class="text-teal">Circuits.</span>
-                </h1>
+    <!-- Interactive Pre-flight checklists -->
+    <div style="margin-top: 3.5rem;">
+      <h3 class="reveal" style="font-family: var(--ff-head); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1.5rem;">Day-of pre-flight checklist.</h3>
+      <div class="checklist-grid reveal">
+        <div class="checklist-card" id="cl-morning">
+          <h4><span class="ch-icon">🌅</span> Morning of the Event</h4>
+          <div class="checklist-items">
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Confirmed your RSVP</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Know the venue address</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Charged devices overnight</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Packed your ID</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Leaving by 9:30 AM</span></div>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-info"><span>Progress</span><span class="cl-count">0 / 5</span></div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+          </div>
+        </div>
+        <div class="checklist-card" id="cl-pack">
+          <h4><span class="ch-icon">🎒</span> What to Pack</h4>
+          <div class="checklist-items">
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Photo ID / school card</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Phone + charger cable</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Laptop (if you have one)</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Power bank (optional)</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Notebook & pen</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Current project if any</span></div>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-info"><span>Progress</span><span class="cl-count">0 / 6</span></div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+          </div>
+        </div>
+        <div class="checklist-card" id="cl-ideas">
+          <h4><span class="ch-icon">💡</span> Ideas to Explore</h4>
+          <div class="checklist-items">
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Looked up basic Arduino code</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Thought of a project idea</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Browsed Hack Club Blueprint</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Joined the Hack Club Slack</span></div>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-info"><span>Progress</span><span class="cl-count">0 / 4</span></div>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <p class="hero-subtitle reveal delay-2">
-                    The world's largest hardware meetup week lands in
-                    Bengaluru.<br />
-                    Solder. Build. Launch.
-                </p>
+<!-- Agenda -->
+<section id="agenda" class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">04 // Flight Plan</span>
+      <h2>Schedule.</h2>
+      <p class="section-lead">Tap any session to see what's happening inside.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item" onclick="toggleTimeline(this)">
+        <div class="tl-dot"></div>
+        <div class="tl-time">10:00</div>
+        <div class="tl-body">
+          <div class="tl-head"><h4>Doors Open Launch Sequence</h4><span class="tl-pill pill-social">Social</span></div>
+          <p>Check-in, collect your badge, meet the ground crew and fellow builders.</p>
+          <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
+          <div class="tl-detail"><ul>
+            <li>Collect your builder badge at the check-in desk</li>
+            <li>Explore the space hardware stations, maker wall</li>
+            <li>Introduce yourself to other attendees</li>
+          </ul></div>
+        </div>
+      </div>
+      <div class="timeline-item" onclick="toggleTimeline(this)">
+        <div class="tl-dot"></div>
+        <div class="tl-time">10:30</div>
+        <div class="tl-body">
+          <div class="tl-head"><h4>Opening Briefing</h4><span class="tl-pill pill-workshop">Talk</span></div>
+          <p>What Blueprint is, what we're building today, and how the day works.</p>
+          <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
+          <div class="tl-detail"><ul>
+            <li>Introduction to Hack Club Blueprint &amp; AMD partnership</li>
+            <li>Day overview and what to expect</li>
+          </ul></div>
+        </div>
+      </div>
+      <div class="timeline-item" onclick="toggleTimeline(this)">
+        <div class="tl-dot"></div>
+        <div class="tl-time">11:00</div>
+        <div class="tl-body">
+          <div class="tl-head"><h4>Hardware Workshop</h4><span class="tl-pill pill-workshop">Workshop</span></div>
+          <p>Beginner-friendly hands-on session. Solder something, break something, learn something.</p>
+          <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
+          <div class="tl-detail"><ul>
+            <li>Guided soldering no experience needed</li>
+            <li>Intro to microcontrollers (Arduino / RP2040)</li>
+            <li>Circuit basics: voltage, current, resistors</li>
+            <li>Build a take-home starter circuit</li>
+          </ul></div>
+        </div>
+      </div>
+      <div class="timeline-item" onclick="toggleTimeline(this)">
+        <div class="tl-dot"></div>
+        <div class="tl-time">13:00</div>
+        <div class="tl-body">
+          <div class="tl-head"><h4>Fuel Stop</h4><span class="tl-pill pill-social">Break</span></div>
+          <p>Lunch provided. Eat, connect, conspire.</p>
+          <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
+          <div class="tl-detail"><ul>
+            <li>Free lunch for all attendees</li>
+            <li>Informal networking share what you're building</li>
+          </ul></div>
+        </div>
+      </div>
+      <div class="timeline-item" onclick="toggleTimeline(this)">
+        <div class="tl-dot"></div>
+        <div class="tl-time">14:00</div>
+        <div class="tl-body">
+          <div class="tl-head"><h4>Open Build + Lightning Talks</h4><span class="tl-pill pill-build">Build</span></div>
+          <p>Build your project. Watch others demo. Live feedback. Productive chaos.</p>
+          <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
+          <div class="tl-detail"><ul>
+            <li>2-hr open build time with mentors on standby</li>
+            <li>5-min lightning talks by experienced makers</li>
+            <li>Live feedback sessions every 30 mins</li>
+            <li>Components and tools available at stations</li>
+          </ul></div>
+        </div>
+      </div>
+      <div class="timeline-item" onclick="toggleTimeline(this)">
+        <div class="tl-dot"></div>
+        <div class="tl-time">16:00</div>
+        <div class="tl-body">
+          <div class="tl-head"><h4>Project Showcase</h4><span class="tl-pill pill-showcase">Showcase</span></div>
+          <p>Present your builds to the guild. Prizes. Recognition. Applause.</p>
+          <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
+          <div class="tl-detail"><ul>
+            <li>2-min demos share what you built or hacked</li>
+            <li>Guild voting on favourite projects</li>
+            <li>Prizes for best build, most creative, best beginner</li>
+            <li>Group photo + Slack community shoutout</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <div class="hero-actions reveal delay-3">
-                    <a href="#rsvp" class="btn btn-primary">Join the Guild</a>
-                    <a href="#overview" class="btn btn-secondary"
-                        >Explore Mission</a
-                    >
-                </div>
-            </div>
+<!-- Organizers -->
+<section id="organizers" class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">05 // Ground Crew</span>
+      <h2>The team behind the mission.</h2>
+    </div>
+    <div class="organizer-grid">
+      <div class="org-card reveal">
+        <div class="org-avatar"><img src="https://i.ibb.co/XkVv5md1/Gemini-Generated-Image-56qm9s56qm9s56qm.png" alt="Satwik" /></div>
+        <div class="org-info"><h4>Satwik Bhusanur</h4><span>Organizer</span><a href="" target="_blank">Contact on Slack</a></div>
+      </div>
+      <div class="org-card reveal d1">
+        <div class="org-avatar"><img src="https://i.ibb.co/DnLYRbK/formal-shreyashn2.jpg" alt="Shreyash" /></div>
+        <div class="org-info"><h4>Shreyash Sah</h4><span>Organizer</span><a href="https://hackclub.enterprise.slack.com/team/U0A1S4UDGNS" target="_blank">Contact on Slack</a></div>
+      </div>
+      <div class="org-card reveal d2">
+        <div class="org-avatar"><img src="https://i.ibb.co/YFjy3nry/Whats-App-Image-2026-03-25-at-7-27-23-PM.jpg" alt="Sreelaya" /></div>
+        <div class="org-info"><h4>TS Sreelaya</h4><span>Organizer</span><a href="https://hackclub.enterprise.slack.com/team/U0A1MTJDESX" target="_blank">Contact on Slack</a></div>
+      </div>
+      <div class="org-card reveal d3">
+        <div class="org-avatar"><img src="" alt="Trinabh" style="background:var(--bg-card);" /></div>
+        <div class="org-info"><h4>Trinabh Anand</h4><span>Organizer</span><a href="" target="_blank">Contact on Slack</a></div>
+      </div>
+      <div class="org-card reveal d4">
+        <div class="org-avatar"><img src="" alt="Ryaan" style="background:var(--bg-card);" /></div>
+        <div class="org-info"><h4>Ryaan Ahmed</h4><span>Organizer</span><a href="" target="_blank">Contact on Slack</a></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            <div class="hero-specs reveal delay-4">
-                <div class="spec-item">
-                    <span class="spec-label">Date</span>
-                    <span class="spec-value text-teal">Apr 14, 2026</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Location</span>
-                    <span class="spec-value">Bengaluru, IN</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Entry</span>
-                    <span class="spec-value">Free</span>
-                </div>
-                <div class="spec-item">
-                    <span class="spec-label">Age</span>
-                    <span class="spec-value">13 - 18</span>
-                </div>
-            </div>
-        </header>
+<!-- RSVP -->
+<section id="rsvp" class="section">
+  <div class="container">
+    <div class="rsvp-wrapper reveal">
+      <div class="rsvp-content">
+        <span class="section-tag">06 // Boarding Pass</span>
+        <h2>Reserve your seat in Bengaluru.</h2>
+        <ul class="perks-list">
+          <li>100% free to attend</li>
+          <li>Food provided on the day</li>
+          <li>All hardware &amp; tools supplied</li>
+          <li>Meet Bengaluru's builder community</li>
+        </ul>
+      </div>
+      <div class="rsvp-action">
+        <div class="action-card">
+          <h3>Ready for Launch?</h3>
+          <p>Registration takes under a minute. Your spot in orbit is waiting.</p>
+          <div class="spots-bar">
+            <div class="spots-info"><span>Spots claimed</span><span style="color:var(--accent)">92%</span></div>
+            <div class="spots-fill-track"><div class="spots-fill" style="width:92%"></div></div>
+          </div>
+          <a href="https://blueprint.hackclub.com/guilds/invite/bengaluru" target="_blank" class="btn btn-primary btn-block">Claim your spot →</a>
+          <span class="note">Open to teenagers aged 13–18 only.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <section id="overview" class="section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-mono">01 // Mission Overview</span>
-                    <h2>Bengaluru's 1-day hardware mission.</h2>
-                    <p class="section-lead">
-                        Part of Hack Club Blueprint's global Build Guilds
-                        week-running April 13-19 across 100+ cities. Every guild
-                        is local. Every build is real.
-                    </p>
-                </div>
+<!-- Sponsors -->
+<section id="sponsors" class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">07 // Sponsors</span>
+      <h2>Backed by great people.</h2>
+      <p class="section-lead">The organisations and individuals making this possible.</p>
+    </div>
+    <div class="reveal" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:1.25rem;">
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+      <div style="background:var(--bg-card); border:1px dashed rgba(255,255,255,0.12); border-radius:6px; padding:2.5rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <div style="width:48px; height:48px; background:rgba(255,255,255,0.05); border-radius:50%; display:flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></div>
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Sponsor Placeholder</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-                <div class="grid-features">
-                    <div class="feature-card reveal">
-                        <div class="feature-num">01</div>
-                        <h3>The Audience</h3>
-                        <p>
-                            Any teen aged 13-18. Zero hardware experience
-                            required-bring curiosity and a phone. Beginners and
-                            serial makers both welcome.
-                        </p>
-                    </div>
-                    <div class="feature-card reveal delay-1">
-                        <div class="feature-num">02</div>
-                        <h3>The Space</h3>
-                        <p>
-                            A curated, hardware-friendly space in Bengaluru.
-                            Venue confirmed closer to the event-sign up to get
-                            the details direct.
-                        </p>
-                    </div>
-                    <div class="feature-card reveal delay-2">
-                        <div class="feature-num">03</div>
-                        <h3>The Build</h3>
-                        <p>
-                            Workshops, project demos, lightning talks, soldering
-                            sessions, open build time. Makers colliding at full
-                            speed for one full day.
-                        </p>
-                    </div>
-                    <div class="feature-card reveal">
-                        <div class="feature-num">04</div>
-                        <h3>The Cost</h3>
-                        <p>
-                            Completely free. Hack Club funds each guild per
-                            attendee-food, venue, and materials included. You
-                            bring the ideas.
-                        </p>
-                    </div>
-                    <div class="feature-card reveal delay-1">
-                        <div class="feature-num">05</div>
-                        <h3>The Scale</h3>
-                        <p>
-                            100+ guilds running globally the same week. Same
-                            energy, same mission-Bengaluru on the map alongside
-                            every other city.
-                        </p>
-                    </div>
-                    <div class="feature-card reveal delay-2">
-                        <div class="feature-num">06</div>
-                        <h3>Blueprint</h3>
-                        <p>
-                            Hack Club's hardware program, built with AMD. Grants
-                            up to $400 USD for advanced builds, real parts, real
-                            guidance for teen makers.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- FAQ -->
+<section id="faq" class="section bg-alt">
+  <div class="container faq-container">
+    <div class="section-header reveal">
+      <span class="section-tag">08 // Comms Decoded</span>
+      <h2>Questions?</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-toggle">What is Cosmic Circuits / Build Guild?<span class="faq-icon"></span></button>
+        <div class="faq-content"><p>Cosmic Circuits is Bengaluru's edition of Build Guild a 1-day hardware meetup running as part of Hack Club Blueprint's global week (April 13–19). Free, beginner-friendly, and open to any teen who wants to build, demo, and connect.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-toggle">Is it actually free?<span class="faq-icon"></span></button>
+        <div class="faq-content"><p>100% free. Hack Club funds each guild per attendee. No tickets, no fees you pay nothing. Food is also covered on the day.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-toggle">Do I need hardware or coding experience?<span class="faq-icon"></span></button>
+        <div class="faq-content"><p>Not at all. Build Guilds welcome complete beginners alongside makers who've shipped 10+ projects. We run beginner workshops and open build time for those with their own work.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-toggle">Who can attend?<span class="faq-icon"></span></button>
+        <div class="faq-content"><p>Any teen aged 13–18. You don't need to be a Hack Club member if you're in that age range, you're in.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-toggle">Where is the venue?<span class="faq-icon"></span></button>
+        <div class="faq-content"><p>The venue is being finalised. Sign up and you'll receive full venue details as soon as they're confirmed via your attendee dashboard.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <section id="agenda" class="section bg-alt">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-mono">02 // Flight Plan</span>
-                    <h2>Timeline.</h2>
-                </div>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <h3>Cosmic Circuits</h3>
+      <p>A Hack Club Blueprint event<br>April 14, 2026 · Bengaluru, India<br><br>Part of the global Build Guilds week 100+ cities, one mission.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigate</h4>
+      <a href="#overview">Overview</a>
+      <a href="#checklist">What to Bring</a>
+      <a href="#agenda">Schedule</a>
+      <a href="#organizers">Team</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="footer-links">
+      <h4>Connect</h4>
+      <a href="https://hackclub.com" target="_blank">Hack Club</a>
+      <a href="https://blueprint.hackclub.com" target="_blank">Blueprint</a>
+      <a href="https://hackclub.com/slack" target="_blank">Join Slack</a>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>© 2026 Build Guild Bengaluru. Designed for makers.</p>
+    <span class="footer-coords">12.9716°N 77.5946°E</span>
+  </div>
+</footer>
 
-                <div class="timeline">
-                    <div class="timeline-item reveal">
-                        <div class="time">10:00</div>
-                        <div class="timeline-content">
-                            <h4>Doors Open - Launch Sequence</h4>
-                            <p>
-                                Check-in, collect your badge, meet the ground
-                                crew and fellow builders.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="time">10:30</div>
-                        <div class="timeline-content">
-                            <h4>Opening Briefing</h4>
-                            <p>
-                                What Blueprint is, what we're building today,
-                                and how the day works.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="time">11:00</div>
-                        <div class="timeline-content">
-                            <h4>Hardware Workshop</h4>
-                            <p>
-                                Beginner-friendly hands-on session. Solder
-                                something, break something, learn something.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="time">13:00</div>
-                        <div class="timeline-content">
-                            <h4>Fuel Stop</h4>
-                            <p>Lunch provided. Eat, connect, conspire.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="time">14:00</div>
-                        <div class="timeline-content">
-                            <h4>Open Build + Lightning Talks</h4>
-                            <p>
-                                Build your project. Watch others demo. Live
-                                feedback. Productive chaos.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal">
-                        <div class="time">16:00</div>
-                        <div class="timeline-content">
-                            <h4>Project Showcase</h4>
-                            <p>
-                                Present your builds to the guild. Prizes.
-                                Recognition. Applause.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="organizers" class="section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-mono">03 // Ground Crew</span>
-                    <h2>The team behind the mission.</h2>
-                </div>
-
-                <div class="organizer-grid">
-                    <div class="org-card reveal">
-                         <div class="org-avatar">
-                            <img
-                                src="https://i.ibb.co/XkVv5md1/Gemini-Generated-Image-56qm9s56qm9s56qm.png"
-                                alt="Satwik"
-                            />
-                        </div>
-                        <div class="org-info">
-                            <h4>Satwik Bhusanur</h4>
-                            <span>Organizer</span>
-                            <a
-                                href=""
-                                target="_blank"
-                                >Contact on Slack</a
-                            >
-                        </div>
-                    </div>
-                    <div class="org-card reveal delay-1">
-                        <div class="org-avatar">
-                            <img
-                                src="https://i.ibb.co/DnLYRbK/formal-shreyashn2.jpg"
-                                alt="Shreyash"
-                            />
-                        </div>
-                        <div class="org-info">
-                            <h4>Shreyash Sah</h4>
-                            <span>Organizer</span>
-                            <a
-                                href="https://hackclub.enterprise.slack.com/team/U0A1S4UDGNS"
-                                target="_blank"
-                                >Contact on Slack</a
-                            >
-                        </div>
-                    </div>
-                    <div class="org-card reveal delay-2">
-                        <div class="org-avatar">
-                            <img
-                                src="https://i.ibb.co/YFjy3nry/Whats-App-Image-2026-03-25-at-7-27-23-PM.jpg"
-                                alt="Sreelaya"
-                            />
-                        </div>
-                        <div class="org-info">
-                            <h4>TS Sreelaya</h4>
-                            <span>Organizer</span>
-                            <a
-                                href="https://hackclub.enterprise.slack.com/team/U0A1MTJDESX"
-                                target="_blank"
-                                >Contact on Slack</a
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="rsvp" class="section bg-alt rsvp-section">
-            <div class="container">
-                <div class="rsvp-wrapper reveal">
-                    <div class="rsvp-content">
-                        <span class="section-mono">04 // Boarding Pass</span>
-                        <h2>Reserve your seat in Bengaluru.</h2>
-                        <ul class="perks-list">
-                            <li>100% free to attend</li>
-                            <li>Food provided on the day</li>
-                            <li>Explore real hardware projects</li>
-                            <li>Meet Bengaluru's builder community</li>
-                        </ul>
-                    </div>
-                    <div class="rsvp-action">
-                        <div class="action-card">
-                            <h3>Ready for Launch?</h3>
-                            <p>
-                                Registration takes under a minute. Your spot in
-                                orbit is waiting.
-                            </p>
-                            <a
-                                href="https://blueprint.hackclub.com/guilds/invite/bengaluru"
-                                target="_blank"
-                                class="btn btn-primary btn-block"
-                                >Claim your spot</a
-                            >
-                            <span class="note"
-                                >Open to teenagers aged 13-18 only.</span
-                            >
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="faq" class="section">
-            <div class="container faq-container">
-                <div class="section-header reveal">
-                    <span class="section-mono">05 // Comms Decoded</span>
-                    <h2>Questions?</h2>
-                </div>
-
-                <div class="faq-list reveal">
-                    <div class="faq-item">
-                        <button class="faq-toggle">
-                            What is Cosmic Circuits / Build Guild?<span
-                                class="icon"
-                            ></span>
-                        </button>
-                        <div class="faq-content">
-                            <p>
-                                Cosmic Circuits is Bengaluru's edition of Build
-                                Guild - a 1-day hardware meetup running as part
-                                of Hack Club Blueprint's global week (April
-                                13-19). Free, beginner-friendly, and open to any
-                                teen who wants to build, demo, and connect.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-toggle">
-                            Is it actually free?<span class="icon"></span>
-                        </button>
-                        <div class="faq-content">
-                            <p>
-                                100% free. Hack Club funds each guild per
-                                attendee. No tickets, no fees - you pay nothing.
-                                Food is also covered on the day.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-toggle">
-                            Do I need hardware or coding experience?<span
-                                class="icon"
-                            ></span>
-                        </button>
-                        <div class="faq-content">
-                            <p>
-                                Not at all. Build Guilds welcome complete
-                                beginners alongside makers who've shipped 10+
-                                projects. We run beginner workshops and open
-                                build time for those with their own work.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-toggle">
-                            Who can attend?<span class="icon"></span>
-                        </button>
-                        <div class="faq-content">
-                            <p>
-                                Any teen aged 13-18. You don't need to be a Hack
-                                Club member - if you're in that age range,
-                                you're in.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-toggle">
-                            Where is the venue?<span class="icon"></span>
-                        </button>
-                        <div class="faq-content">
-                            <p>
-                                The venue is being finalised. Sign up and you'll
-                                receive full venue details as soon as they're
-                                confirmed via your attendee dashboard.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="footer">
-            <div class="container footer-grid">
-                <div class="footer-brand">
-                    <h3>Cosmic Circuits</h3>
-                    <p>
-                        A Hack Club Blueprint event<br />April 14, 2026 ·
-                        Bengaluru, India
-                    </p>
-                </div>
-                <div class="footer-links">
-                    <h4>Navigation</h4>
-                    <a href="#overview">Overview</a>
-                    <a href="#agenda">Agenda</a>
-                    <a href="#organizers">Team</a>
-                    <a href="#faq">FAQ</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Connect</h4>
-                    <a href="https://hackclub.com" target="_blank">Hack Club</a>
-                    <a href="https://blueprint.hackclub.com" target="_blank"
-                        >Blueprint</a
-                    >
-                    <a href="https://hackclub.com/slack" target="_blank"
-                        >Join Slack</a
-                    >
-                </div>
-            </div>
-            <div class="footer-bottom container">
-                <p>&copy; 2026 Build Guild Bengaluru. Designed for makers.</p>
-            </div>
-        </footer>
-
-        <script src="script.js"></script>
-    </body>
+<script src="script.js"></script>
+</body>
 </html>
