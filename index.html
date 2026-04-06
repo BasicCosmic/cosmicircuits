@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta property="og:title" content="Cosmic Circuits" />
   <meta property="og:description" content="Cosmic Circuits - Build Guild Bengaluru. Hack Club Blueprint's hardware meetup. April 14, 2026." />
+  <meta property="og:image" content="https://i.ibb.co/TDg38sXQ/favicon.png" />
   <meta property="og:url" content="https://voidconsole.github.io/cosmicircuits/" />
   <meta property="og:type" content="website">
   <title>Cosmic Circuits - Build Guild Bengaluru</title>
@@ -12,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+	<link rel="icon" type="image/png" href="https://i.ibb.co/TDg38sXQ/favicon.png">
 </head>
 <body>
 
@@ -20,7 +22,7 @@
 
 <!-- Navbar -->
 <nav class="navbar">
-  <div class="nav-brand"><img src="https://i.ibb.co/GvWQwmpk/Cosmic-circ-Logo.jpg" alt="Cosmic Circuits Logo" style="height:36px;width:36px;object-fit:contain;border-radius:6px;" />Cosmic Circuits</div>
+  <div class="nav-brand"><img src="https://i.ibb.co/TDg38sXQ/favicon.png" alt="Cosmic Circuits Logo" style="height:36px;width:36px;object-fit:contain;border-radius:6px;" />Cosmic Circuits</div>
   <ul class="nav-links">
     <li><a href="#overview">Overview</a></li>
     <li><a href="#checklist">Prep</a></li>
@@ -50,7 +52,6 @@
 
 <!-- Hero -->
 <header class="hero">
-  <div class="hero-tag reveal"><span style="color:var(--accent)">⬡</span> Hack Club Blueprint · Build Guilds 2026</div>
   <h1 class="hero-title reveal d1">
     Cosmic<br>
     <em>Circuits.</em><br>
@@ -101,9 +102,8 @@
       <p style="font-size:1.05rem; color:var(--muted); line-height:1.75;">
         Bengaluru is just the launchpad. Cosmic Circuits is part of a global wave of builders from over 100 cities, one shared week, all making something real. Whether you're soldering your first circuit or shipping your tenth project, this is where the next chapter starts. The road ahead is wide open.
       </p>
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:0.6rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
-        Let's Hit The Road!!!
+      <a href="/" target="_blank" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:0.6rem;">
+        Let's Hit The Road!
       </a>
     </div>
   </div>
@@ -119,7 +119,7 @@
     </div>
     <div class="bring-grid reveal">
       <div class="bring-card">
-        <div class="bring-icon">🪪</div>
+        <div class="bring-icon">📷</div>
         <div class="bring-text"><h4>Photo ID / School Card</h4><p>For check in verification. Any school issued ID works.</p><span class="bring-badge badge-required">Required</span></div>
       </div>
       <div class="bring-card">
@@ -163,7 +163,7 @@
             <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Know the venue address</span></div>
             <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Charged devices overnight</span></div>
             <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Packed your ID</span></div>
-            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Leaving by 9:30 AM</span></div>
+            <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Leaving by 9:00 AM</span></div>
           </div>
           <div class="progress-bar-wrap">
             <div class="progress-info"><span>Progress</span><span class="cl-count">0 / 5</span></div>
@@ -178,8 +178,8 @@
             <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Laptop (if you have one)</span></div>
             <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Power bank (optional)</span></div>
             <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Notebook & pen</span></div>
+	    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Any creative stationary</span></div>
             <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Current project if any</span></div>
-	    <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">Basic hardware stationary</span></div>
 
           </div>
           <div class="progress-bar-wrap">
@@ -238,10 +238,10 @@
           <span class="tl-expand"><span class="expand-arrow">▶</span> Details</span>
           <div class="tl-detail"><ul>
             <li>Free microcontrollers &amp; components for every attendee</li>
-            <li>Guided soldering — no experience needed</li>
-            <li>Intro to microcontrollers (Arduino / RP2040)</li>
-            <li>Circuit basics: voltage, current, resistors</li>
-            <li>Build a take home starter circuit</li>
+            <li>Intro to microcontrollers (ESP8266)</li>
+            <li>Building applications to control hardware</li>
+            <li>PCB designing</li>
+            <li>Build fun projects yourself!</li>
           </ul></div>
         </div>
       </div>
@@ -317,23 +317,23 @@
     <div class="organizer-grid">
       <div class="org-card reveal">
         <div class="org-avatar"><img src="https://i.ibb.co/XkVv5md1/Gemini-Generated-Image-56qm9s56qm9s56qm.png" alt="Satwik" /></div>
-        <div class="org-info"><h4>Satwik Bhusanur</h4><span>Organizer</span><a href="https://app.slack.com/client/E09V59WQY1E/D0A0MJGA0KC" target="_blank">Contact on Slack</a></div>
+        <div class="org-info"><h4>Satwik Bhusanur</h4><span>Mission Control</span><a href="mailto:satwik.bhusanur@gmail.com" target="_blank">satwik.bhusanur@gmail.com</a></div>
+      </div>
+	<div class="org-card reveal d2">
+        <div class="org-avatar"><img src="https://i.ibb.co/YFjy3nry/Whats-App-Image-2026-03-25-at-7-27-23-PM.jpg" alt="Sreelaya" /></div>
+        <div class="org-info"><h4>TS Sreelaya</h4><span>Mission Control</span><a href="mailto:sreelayats9@gmail.com" target="_blank">sreelayats9@gmail.com</a></div>
       </div>
       <div class="org-card reveal d1">
         <div class="org-avatar"><img src="https://i.ibb.co/DnLYRbK/formal-shreyashn2.jpg" alt="Shreyash" /></div>
-        <div class="org-info"><h4>Shreyash Sah</h4><span>Organizer</span><a href="https://app.slack.com/client/E09V59WQY1E/D0AR2AYV7GR" target="_blank">Contact on Slack</a></div>
-      </div>
-      <div class="org-card reveal d2">
-        <div class="org-avatar"><img src="https://i.ibb.co/YFjy3nry/Whats-App-Image-2026-03-25-at-7-27-23-PM.jpg" alt="Sreelaya" /></div>
-        <div class="org-info"><h4>TS Sreelaya</h4><span>Organizer</span><a href="https://app.slack.com/client/E09V59WQY1E/D0AP9RH9K4K" target="_blank">Contact on Slack</a></div>
+        <div class="org-info"><h4>Shreyash Sah</h4><span>Mission Control</span><a href="mailto:shreyashsah007@gmail.com" target="_blank">shreyashsah007@gmail.com</a></div>
       </div>
       <div class="org-card reveal d3">
-        <div class="org-avatar"><img src="" alt="Trinabh" style="background:var(--bg-card);" /></div>
-        <div class="org-info"><h4>Trinabh Anand</h4><span>Organizer</span><a href="https://hackclub.slack.com/archives/D0A0MJGA0KC/p1775317281730849" target="_blank">Contact on Slack</a></div>
+        <div class="org-avatar"><img src="https://w7.pngwing.com/pngs/289/964/png-transparent-profile-user-avatar-account-man-person-3d-icon-thumbnail.png" alt="Trinabh" style="background:var(--bg-card);" /></div>
+        <div class="org-info"><h4>Trinabh Anand</h4><span>Ground Control</span><a href="mailto:trinabhanand8@gmail.com" target="_blank">trinabhanand8@gmail.com</a></div>
       </div>
       <div class="org-card reveal d4">
-        <div class="org-avatar"><img src="" alt="Ryaan" style="background:var(--bg-card);" /></div>
-        <div class="org-info"><h4>Ryaan Ahmed</h4><span>Organizer</span><a href="https://app.slack.com/client/E09V59WQY1E/D0ARHQZMVB2" target="_blank">Contact on Slack</a></div>
+        <div class="org-avatar"><img src="https://w7.pngwing.com/pngs/289/964/png-transparent-profile-user-avatar-account-man-person-3d-icon-thumbnail.png" alt="Ryaan" style="background:var(--bg-card);" /></div>
+        <div class="org-info"><h4>Ryaan Ahmed</h4><span>Ground Control</span><a href="mailto:ryaan.ahmed300@gmail.com" target="_blank">ryaan.ahmed300@gmail.com</a></div>
       </div>
     </div>
   </div>
@@ -355,7 +355,7 @@
       </div>
       <div class="rsvp-action">
         <div class="action-card">
-          <h3>Ready for Launch?</h3>
+          <h3>Ready to Launch?</h3>
           <p>Registration takes under a minute. Your spot in orbit is waiting.</p>
           <div class="spots-bar">
             <div class="spots-info"><span>Spots claimed</span><span style="color:var(--accent)">92%</span></div>
@@ -378,26 +378,46 @@
       <p class="section-lead">The organisations and individuals making this possible.</p>
     </div>
     <div class="reveal" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:1.25rem;">
-      <a href="https://hackclub.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;"><div style="background:var(--bg-card); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+      <a href="https://hackclub.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
+		  <div style="background:var(--bg-card); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
         <img src="https://i.ibb.co/tTD3Jvyg/flag-standalone-wtransparent.png" alt="Hack Club" style="max-height:64px; max-width:160px; object-fit:contain; background:#111;border-radius:4px;" />
         <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">Hack Club</span>
-      </div><a href="https://codecrafters.io" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
+      </div> </a>
+		  <a href="https://www.amd.com/" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
+      <div style="background:var(--bg-card); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
+        <img src="https://i.ibb.co/xSYx79Xn/amd.png" alt="AMD" style="max-height:64px; max-width:160px; object-fit:contain; border-radius:4px;" />
+        <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">AMD</span>
+      </div></a>
+		  <a href="https://codecrafters.io" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
       <div style="background:var(--bg-card); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
         <img src="https://i.ibb.co/JwW8Bncw/codecrafters.png" alt="CodeCrafters" style="max-height:64px; max-width:160px; object-fit:contain; border-radius:4px;" />
         <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">CodeCrafters</span>
-      </div><a href="https://oshwlab.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
+      </div></a>
+		<a href="https://oshwlab.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
       <div style="background:var(--bg-card); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
         <img src="https://i.ibb.co/qMHmZ253/oshwlab-logo.png" alt="OSHW Lab" style="max-height:64px; max-width:160px; object-fit:contain; border-radius:4px;" />
         <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">OSHW Lab</span>
-      </div><a href="https://jlcpcb.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
+      </div></a>
+		<a href="https://jlcpcb.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
       <div style="background:var(--bg-card); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
         <img src="https://i.ibb.co/zVtb5J4c/id0-Zkb-RC8-G-logos.jpg	" alt="JLCPCB" style="max-height:64px; max-width:160px; object-fit:contain; border-radius:4px;" />
         <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">JLCPCB</span>
-      </div><a href="https://passport.easyeda.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
+      </div></a>
+	<a href="https://passport.easyeda.com" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
       <div style="background:var(--bg-card); border:1px solid rgba(255,255,255,0.12); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.3)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.12)'">
         <img src="https://i.ibb.co/W4cxb4RH/easyeda-logo.png" alt="EasyEDA" style="max-height:64px; max-width:160px; object-fit:contain; border-radius:4px;" />
         <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">EasyEDA</span>
       </div></a>
+	<a href="https://hcb.hackclub.com/donations/start/build-guild-bengaluru" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;">
+  <div style="background:var(--bg-card); border:1px dashed rgba(0,255,178,0.35); border-radius:6px; padding:2rem 1.5rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.75rem; min-height:120px; transition:border-color 0.25s;" onmouseover="this.style.borderColor='rgba(0,255,178,0.8)'" onmouseout="this.style.borderColor='rgba(0,255,178,0.35)'">
+    <div style="font-size:2rem; color:rgba(0,255,178,0.7); line-height:1;">+</div>   
+    <span style="font-family:var(--ff-mono); font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase;">
+      Add Your Logo Here
+    </span>
+    
+  </div>
+</a>
+	
     </div>
   </div>
 </section>
